@@ -7,309 +7,235 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@400;600;700&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="assets/css/style.css">
     <style>
+        /* [REVISED] แก้ไข body เพื่อ override CSS ภายนอก */
         body {
             font-family: 'Inter', 'Sarabun', sans-serif;
-            /* 1. เปลี่ยนเป็น Light Mode ที่สบายตา */
-            background-color: #f4f7f6; /* light-gray */
-            color: #1f2937; /* gray-800 */
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            min-height: 100vh;
-            padding: 1rem;
-            padding-top: 100px; /* Space for fixed navbar */
-        }
-        .container {
-            width: 100%;
-            max-width: 500px;
-            margin: auto;
-            text-align: center;
-            /* 2. ทำให้ตัวแอปเป็นการ์ดลอยๆ */
-            background-color: #ffffff;
-            border-radius: 16px;
-            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.07);
-            padding: 2.5rem;
-        }
-        h1 {
-            font-size: 2rem; /* 32px */
-            font-weight: 700;
-            margin-bottom: 1.5rem;
-        }
-
-        /* 3. สไตล์ปุ่มเลือก Deck ใหม่ */
-        .deck-selector {
-            display: flex;
-            gap: 0.75rem;
-            margin-bottom: 1.5rem;
-        }
-        .deck-btn {
-            width: 50%;
-            padding: 0.75rem 1rem;
-            font-size: 1rem;
-            font-weight: 600;
-            border: 2px solid #e5e7eb; /* gray-200 */
-            border-radius: 0.5rem; /* 8px */
-            background-color: #fff;
-            color: #4b5563; /* gray-600 */
-            cursor: pointer;
-            transition: all 0.2s ease-in-out;
-        }
-        .deck-btn:hover {
-            background-color: #f9fafb; /* gray-50 */
-        }
-        /* สไตล์ปุ่ม active ของ Basic */
-        .deck-btn.active-basic {
-            border-color: #059669; /* emerald-600 */
-            background-color: #ecfdf5; /* emerald-50 */
-            color: #065f46; /* emerald-800 */
-            box-shadow: 0 2px 4px rgba(5, 150, 105, 0.1);
-        }
-        /* สไตล์ปุ่ม active ของ Deep Dive */
-        .deck-btn.active-deep {
-            border-color: #0e7490; /* cyan-700 */
-            background-color: #ecfeff; /* cyan-50 */
-            color: #155e75; /* cyan-800 */
-            box-shadow: 0 2px 4px rgba(14, 116, 144, 0.1);
-        }
-
-        .scene {
-            width: 100%;
-            height: 320px;
-            perspective: 1000px;
-            margin-bottom: 1.5rem;
-        }
-        .card {
-            width: 100%;
-            height: 100%;
-            position: relative;
-            cursor: pointer;
-            transform-style: preserve-3d;
-            transition: transform 0.7s cubic-bezier(0.4, 0.0, 0.2, 1);
-        }
-        .card.is-flipped {
-            transform: rotateY(180deg);
-        }
-        .card__face {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            -webkit-backface-visibility: hidden;
-            backface-visibility: hidden;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-direction: column;
-            padding: 2rem;
-            /* 4. อัปเกรดเงาและขอบมนของการ์ด */
-            border-radius: 12px;
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05);
-            box-sizing: border-box;
-            border: 1px solid #e5e7eb; /* gray-200 */
-        }
-        .card__face--front {
-            background-color: #ffffff;
+            background-color: #f4f7f6;
             color: #1f2937;
-        }
-        .card__face--back {
-            background-color: #059669; /* emerald-600 */
-            color: white;
-            transform: rotateY(180deg);
-            border-color: #059669;
-        }
-        /* 5. สไตล์สีด้านหลังการ์ดสำหรับ Deep Dive */
-        .card__face--back.deep-dive {
-            background-color: #0e7490; /* cyan-700 */
-            border-color: #0e7490;
+            
+            /* --- บังคับ Reset ค่าที่มาจาก style.css --- */
+            display: block;  /* บังคับให้ไม่เป็น flex */
+            min-height: auto;  /* ยกเลิกความสูง 100vh */
+            align-items: initial;
+            justify-content: initial;
+            padding: 0;        /* Reset padding ทั้งหมดก่อน */
+            /* --- จบการ Reset --- */
+
+            padding-top: 70px; /* [EDIT] แก้ไขเป็น 70px ให้ตรงกับ style.css */
         }
 
-        .card-label {
-            font-size: 0.8rem;
-            font-weight: 600;
-            color: #9ca3af; /* gray-400 */
-            margin-bottom: 0.5rem;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-        .card__face--back .card-label {
-            color: rgba(255,255,255,0.7);
-        }
-        #card-front { font-size: 1.75rem; font-weight: 600; }
-        #card-back { font-size: 1.25rem; }
-
-        /* 6. สไตล์ Progress Bar */
-        .progress-container {
-            width: 100%;
-            background-color: #e5e7eb; /* gray-200 */
-            border-radius: 99px;
-            height: 10px;
-            margin-bottom: 0.5rem;
-            overflow: hidden;
-        }
-        #progress-bar {
-            height: 100%;
-            width: 0%;
-            border-radius: 99px;
-            transition: width 0.3s ease, background-color 0.3s ease;
-        }
-        #progress-bar.basic {
-            background-color: #059669; /* emerald-600 */
-        }
-        #progress-bar.deep {
-            background-color: #0e7490; /* cyan-700 */
-        }
-
-        #progress-text {
-            color: #6b7280; /* gray-500 */
-            margin-bottom: 1.5rem;
-            font-size: 0.9rem;
-        }
-        
-        .nav-buttons {
+        /* [NEW] เพิ่ม .page-content เพื่อทำหน้าที่จัดกลางแทน body */
+        .page-content {
             display: flex;
-            justify-content: space-between;
-            gap: 1rem;
-        }
-        .nav-btn {
-            width: 100%;
-            padding: 0.8rem 1rem;
-            border: none;
-            border-radius: 0.5rem;
-            font-size: 1rem;
-            font-weight: 600;
-            cursor: pointer;
-            /* 7. เพิ่มอนิเมชันให้ปุ่ม */
-            transition: all 0.2s ease-in-out;
-        }
-        .nav-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
-        }
-        #prev-btn {
-            background-color: #4b5563; /* gray-600 */
-            color: white;
-        }
-        #prev-btn:hover { background-color: #374151; }
-        #next-btn {
-            /* สีจะถูกกำหนดโดย JS */
-            color: white;
-        }
-        
-        /* Navbar Styles (from original code) */
-        .navbar {
-            background-color: #fff;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            z-index: 1000;
-            display: flex;
-            justify-content: space-between;
             align-items: center;
-            padding: 0 20px;
-            height: 70px;
+            justify-content: center;
+            /* ความสูงขั้นต่ำ = ความสูงจอ - 70px ของ Navbar */
+            min-height: calc(100vh - 70px); /* [EDIT] แก้ไขเป็น 70px */
+            padding: 1rem; /* ย้าย padding 1rem มาไว้ที่นี่แทน */
         }
-        .navbar-brand {
-            font-weight: 700;
-            font-size: 1.4em;
-            color: #00796b;
-            text-decoration: none;
+
+
+        /* Page-specific styles for Flashcards.html */
+        .deck-selector { display: flex; gap: 0.75rem; margin-bottom: 1.5rem; }
+        .deck-btn { width: 50%; padding: 0.75rem 1rem; font-size: 1rem; font-weight: 600; border: 2px solid #e5e7eb; border-radius: 0.5rem; background-color: #fff; color: #4b5563; cursor: pointer; transition: all 0.2s ease-in-out; }
+        .deck-btn:hover { background-color: #f9fafb; }
+        .deck-btn.active-basic { border-color: #059669; background-color: #ecfdf5; color: #065f46; box-shadow: 0 2px 4px rgba(5, 150, 105, 0.1); }
+        .deck-btn.active-deep { border-color: #0e7490; background-color: #ecfeff; color: #155e75; box-shadow: 0 2px 4px rgba(14, 116, 144, 0.1); }
+        
+        .scene { width: 100%; height: 320px; perspective: 1000px; margin-bottom: 10rem; }
+        .card { width: 100%; height: 100%; position: relative; cursor: pointer; transform-style: preserve-3d; transition: transform 0.7s cubic-bezier(0.4, 0.0, 0.2, 1); }
+        
+        /* Style for keyboard focus */
+        .card[role="button"]:focus { outline: 2px solid #3b82f6; outline-offset: 2px; box-shadow: 0 0 0 4px rgba(59,130,246,0.3); }
+        
+        .card.is-flipped { transform: rotateY(180deg); }
+        .card__face { position: absolute; width: 100%; height: 100%; -webkit-backface-visibility: hidden; backface-visibility: hidden; display: flex; align-items: center; justify-content: center; flex-direction: column; padding: 1.5rem; border-radius: 12px; box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05); box-sizing: border-box; border: 1px solid #e5e7eb; }
+        .card__face--front { 
+            background-color: #ffffff; 
+            color: #1f2937; 
+            justify-content: flex-start; 
+            padding-top: 2rem; 
         }
-        .navbar-links {
-            display: flex;
-            gap: 20px;
+        .card__face--back { 
+            background-color: #059669; 
+            color: white; 
+            transform: rotateY(180deg); 
+            border-color: #059669; 
+            justify-content: flex-start; 
+            padding-top: 2rem; 
         }
-        .navbar-links a {
-            text-decoration: none;
-            color: #343a40;
-            font-weight: 600;
-            padding: 10px;
-            border-radius: 6px;
-            transition: background-color 0.2s;
+        .card__face--back.deep-dive { background-color: #0e7490; border-color: #0e7490; }
+        
+        .card-label { font-size: 0.8rem; font-weight: 600; color: #9ca3af; margin-bottom: 0.5rem; text-transform: uppercase; letter-spacing: 0.5px; }
+        .card__face--back .card-label { color: rgba(255,255,255,0.7); }
+        
+        #card-front { font-size: 1.75rem; font-weight: 600; text-align: center; }
+        #card-back { font-size: 1.25rem; text-align: center; }
+        
+        .progress-container { width: 100%; background-color: #e5e7eb; border-radius: 99px; height: 10px; margin-bottom: 0.5rem; overflow: hidden; }
+        #progress-bar { height: 100%; width: 0%; border-radius: 99px; transition: width 0.3s ease, background-color 0.3s ease; }
+        #progress-bar.basic { background-color: #059669; }
+        #progress-bar.deep { background-color: #0e7490; }
+        
+        #progress-text { color: #6b7280; margin-bottom: 1.5rem; font-size: 0.9rem; }
+        
+        .nav-buttons { display: flex; justify-content: space-between; gap: 1rem; }
+        .nav-btn { width: 100%; padding: 0.8rem 1rem; border: none; border-radius: 0.5rem; font-size: 1rem; font-weight: 600; cursor: pointer; transition: all 0.2s ease-in-out; }
+        .nav-btn:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.08); }
+        
+        #prev-btn { background-color: #4b5563; color: white; }
+        #prev-btn:hover { background-color: #374151; }
+        
+        /* ย้าย Style ของปุ่ม Next มาไว้ที่นี่ */
+        #next-btn { 
+            color: white; 
+            background-color: #059669; /* Basic color (default) */
         }
-        .navbar-links a:hover, .navbar-links a.active {
-            background-color: #e0f2f1;
-            color: #004d40;
+        #next-btn:hover {
+             background-color: #047857; /* Darker basic */
         }
-        .dropdown {
-            position: relative;
+        /* เมื่อ .container มี class .deck-deep (ถูกเพิ่มโดย JS) */
+        .container.deck-deep #next-btn {
+            background-color: #0e7490; /* Deep color */
         }
-        .dropdown-content {
+        .container.deck-deep #next-btn:hover {
+            background-color: #155e75; /* Darker deep */
+        }
+        
+        /* Mobile Responsive for Navbar */
+        .menu-toggle {
             display: none;
-            position: absolute;
-            top: 100%;
-            right: 0;
-            background-color: #fff;
-            min-width: 200px;
-            box-shadow: 0 8px 16px rgba(0,0,0,0.2);
-            border-radius: 8px;
-            padding: 10px 0;
+            flex-direction: column;
+            justify-content: space-between;
+            width: 30px;
+            height: 21px;
+            cursor: pointer;
+            padding: 5px;
         }
-        .dropdown-content a {
-            display: block;
-            padding: 12px 16px;
+        .menu-toggle span {
+            height: 3px;
+            width: 100%;
+            background-color: #343a40;
+            transition: 0.3s;
+            border-radius: 3px;
         }
-        .dropdown:hover .dropdown-content {
-            display: block;
+        @media (max-width: 992px) {
+            .navbar-links {
+                position: fixed;
+                left: -100%;
+                top: 70px;
+                flex-direction: column;
+                background-color: white;
+                width: 100%;
+                text-align: center;
+                transition: 0.3s;
+                box-shadow: 0 10px 27px rgba(0,0,0,0.05);
+                padding: 20px 0;
+            }
+            .navbar-links.active {
+                left: 0;
+            }
+            .navbar-links a {
+                padding: 15px;
+                display: block;
+                border-bottom: 1px solid #e9ecef;
+            }
+            .dropdown {
+                width: 100%;
+            }
+            .dropdown-content {
+                position: static;
+                box-shadow: none;
+                border-radius: 0;
+                display: none;
+                background-color: #f8f9fa;
+            }
+            .dropdown.active .dropdown-content {
+                display: block;
+            }
+            .dropdown.mobile-active .dropdown-content {
+                display: block;
+            }
+            .menu-toggle {
+                display: flex;
+            }
         }
     </style>
 </head>
 <body>
     <header class="navbar">
-        <a href="index.html" class="navbar-brand">NCCS Site Visit</a>
+        <!-- [EDIT] อัปเดต Navbar brand ตามที่คุณวิรุณส่งมา -->
+        <a href="index.html" class="navbar-brand">
+            <img src="https://i.postimg.cc/bvc3fm2r/apopa-logo.png" 
+                 alt="APOPA Logo" 
+                 style="height: 40px; margin-right: 10px;"
+                 onerror="this.style.display='none'">
+            NCCS Site Visit
+        </a>
         <nav class="navbar-links">
-            <a href="index.html">Home</a>
-            <a href="Visit Detail.html">Visit Details</a>
-            <a href="NCCS Detail.html">NCCS Deep Dive</a>
-            <a href="SharingAI.html">AI Sharing Session</a>
+            <a href="index.html"><i class="fas fa-home"></i> Home</a>
+            <a href="Visit Detail.html"><i class="fas fa-info-circle"></i> Visit Details</a>
+            <a href="NCCS Detail.html"><i class="fas fa-book-open"></i> NCCS Deep Dive</a>
+            <a href="SharingAI.html"><i class="fas fa-robot"></i> AI Sharing Session</a>
             <div class="dropdown">
-                <a href="#">More</a>
+                <a href="#"><i class="fas fa-ellipsis-h"></i> More</a>
                 <div class="dropdown-content">
-                    <a href="Participants.html">Participants</a>
-                    <a href="Logistic Plan.html">Logistics</a>
-                    <a href="Flashcards.html" class="active">Flashcards Game</a>
-                    <a href="APOPA.html">About APOPA</a>
+                    <a href="Participants.html"><i class="fas fa-users"></i> Participants</a>
+                    <a href="Logistic Plan.html"><i class="fas fa-calendar-alt"></i> Logistics</a>
+                    <a href="Flashcards.html" class="active"><i class="fas fa-graduation-cap"></i> Flashcards Game</a>
+                    <a href="APOPA.html"><i class="fas fa-building"></i> About APOPA</a>
                 </div>
             </div>
         </nav>
+        <div class="menu-toggle">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
     </header>
     
-    <div class="container">
-        <h1>NCCS Flashcards</h1>
-        
-        <!-- เปลี่ยนจาก Select เป็น Buttons -->
-        <div class="deck-selector">
-            <button id="deck-btn-basic" class="deck-btn">ชุดพื้นฐาน (Facts)</button>
-            <button id="deck-btn-deepDive" class="deck-btn">ชุดเจาะลึก (Concepts)</button>
-        </div>
+    <!-- [NEW] เพิ่ม <main> wrapper -->
+    <main class="page-content">
+        <div class="container">
+            <h1>NCCS Flashcards</h1>
+            
+            <div class="deck-selector">
+                <button id="deck-btn-basic" class="deck-btn">ชุดพื้นฐาน (Facts)</button>
+                <button id="deck-btn-deepDive" class="deck-btn">ชุดเจาะลึก (Concepts)</button>
+            </div>
 
-        <div class="scene">
-            <div id="flashcard" class="card">
-                <div class="card__face card__face--front">
-                    <div class="card-label">คำถาม</div>
-                    <p id="card-front"></p>
-                    <div class="card-label" style="position: absolute; bottom: 20px; color: #adb5bd; font-style: italic; font-weight: 400;">(คลิกเพื่อพลิกดูคำตอบ)</div>
-                </div>
-                <div id="card-back-face" class="card__face card__face--back">
-                    <div class="card-label">คำตอบ</div>
-                    <p id="card-back"></p>
+            <div class="scene">
+                <!-- เพิ่ม role="button" และ tabindex="0" เพื่อ Accessibility -->
+                <div id="flashcard" class="card" role="button" tabindex="0">
+                    <div class="card__face card__face--front">
+                        <div class="card-label">คำถาม</div>
+                        <p id="card-front"></p>
+                        <div class="card-label" style="position: absolute; bottom: 20px; color: #adb5bd; font-style: italic; font-weight: 400;">(คลิก หรือกด Spacebar/Enter เพื่อพลิก)</div>
+                    </div>
+                    <div id="card-back-face" class="card__face card__face--back">
+                        <div class="card-label">คำตอบ</div>
+                        <p id="card-back"></p>
+                    </div>
                 </div>
             </div>
-        </div>
 
-        <!-- เพิ่ม Progress Bar -->
-        <div class="progress-container">
-            <div id="progress-bar"></div>
-        </div>
-        <div id="progress-text" class="progress-text"></div>
+            <!-- เพิ่ม role และ aria attributes เพื่อ Accessibility -->
+            <div class="progress-container">
+                <div id="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+            </div>
+            <div id="progress-text" class="progress-text"></div>
 
-        <div class="nav-buttons">
-            <button id="prev-btn" class="nav-btn">&larr; ก่อนหน้า</button>
-            <button id="next-btn" class="nav-btn">ถัดไป &rarr;</button>
+            <div class="nav-buttons">
+                <button id="prev-btn" class="nav-btn">&larr; ก่อนหน้า</button>
+                <button id="next-btn" class="nav-btn">ถัดไป &rarr;</button>
+            </div>
         </div>
-    </div>
+    </main> <!-- ปิด <main> wrapper -->
 
+    <script src="assets/js/script.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             
@@ -398,6 +324,7 @@
             let isFlipped = false;
 
             // อ้างอิง DOM Elements
+            const container = document.querySelector('.container'); 
             const card = document.getElementById('flashcard');
             const cardFront = document.getElementById('card-front');
             const cardBack = document.getElementById('card-back');
@@ -405,11 +332,10 @@
             const prevBtn = document.getElementById('prev-btn');
             const nextBtn = document.getElementById('next-btn');
             
-            // Element ใหม่
             const deckBtnBasic = document.getElementById('deck-btn-basic');
             const deckBtnDeepDive = document.getElementById('deck-btn-deepDive');
             const progressBar = document.getElementById('progress-bar');
-            const progressText = document.getElementById('progress-text'); // เปลี่ยนจาก progress-indicator
+            const progressText = document.getElementById('progress-text'); 
 
             function loadDeck(deckName) {
                 currentDeck = deckName;
@@ -417,21 +343,19 @@
                 
                 const isDeepDive = deckName === 'deepDive';
 
-                // สลับสไตล์ของปุ่มเลือก Deck
                 deckBtnBasic.classList.toggle('active-basic', !isDeepDive);
                 deckBtnDeepDive.classList.toggle('active-deep', isDeepDive);
-
-                // สลับสีด้านหลังการ์ด
                 cardBackFace.classList.toggle('deep-dive', isDeepDive);
-                
-                // สลับสี Progress Bar
                 progressBar.classList.toggle('basic', !isDeepDive);
                 progressBar.classList.toggle('deep', isDeepDive);
                 
-                // สลับสีปุ่ม Next
-                nextBtn.style.backgroundColor = isDeepDive ? '#0e7490' : '#059669';
+                // เปลี่ยนมาใช้การ toggle class ที่ container
+                container.classList.toggle('deck-deep', isDeepDive);
+                
+                // [REMOVED] ลบการกำหนด style โดยตรง
+                // nextBtn.style.backgroundColor = isDeepDive ? '#0e7490' : '#059669';
 
-                resetCard(); // รีเซ็ตการ์ดเมื่อเปลี่ยน deck
+                resetCard(); 
             }
 
             function updateCardContent() {
@@ -441,9 +365,12 @@
                     cardFront.textContent = currentCard.q;
                     cardBack.textContent = currentCard.a;
                     
-                    // อัปเดต Progress Bar และ Text
                     const percentage = (currentCardIndex + 1) / deckData.length * 100;
                     progressBar.style.width = `${percentage}%`;
+                    
+                    // อัปเดต aria-valuenow เพื่อ Accessibility
+                    progressBar.setAttribute('aria-valuenow', percentage.toFixed(0));
+                    
                     progressText.textContent = `การ์ด ${currentCardIndex + 1} / ${deckData.length}`;
                 }
             }
@@ -477,7 +404,7 @@
                 }
             }
 
-            // เปลี่ยน Event Listener จาก Select เป็น Buttons
+            // Event Listeners
             deckBtnBasic.addEventListener('click', () => loadDeck('basic'));
             deckBtnDeepDive.addEventListener('click', () => loadDeck('deepDive'));
 
@@ -485,12 +412,23 @@
             nextBtn.addEventListener('click', showNextCard);
             prevBtn.addEventListener('click', showPrevCard);
 
+            // ปรับปรุง keyboard navigation
             document.addEventListener('keydown', (e) => {
-                if (e.key === 'ArrowRight') showNextCard();
-                else if (e.key === 'ArrowLeft') showPrevCard();
+                if (e.key === 'ArrowRight') {
+                    showNextCard();
+                } 
+                else if (e.key === 'ArrowLeft') {
+                    showPrevCard();
+                } 
                 else if (e.key === ' ') {
-                    e.preventDefault();
+                    e.preventDefault(); // ป้องกันหน้าจอเลื่อน
                     flipCard();
+                }
+                else if (e.key === 'Enter') {
+                    // ถ้า focus อยู่ที่การ์ด ให้พลิกการ์ด
+                    if (document.activeElement === card) {
+                         flipCard();
+                    }
                 }
             });
 
@@ -500,3 +438,4 @@
     </script>
 </body>
 </html>
+

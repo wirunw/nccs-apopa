@@ -4,115 +4,101 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ถอดรหัสอนาคตเภสัชกรรมมะเร็ง</title>
+    <link rel="icon" type="image/x-icon" href="https://i.postimg.cc/bvc3fm2r/apopa-logo.png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@400;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="assets/css/style.css">
     <style>
-        body {
-            font-family: 'Sarabun', sans-serif;
-            background-color: #f8f9fa; /* Master background */
-            color: #333;
-            margin: 0;
-        }
-        .container {
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 40px 20px;
-        }
-        .main-header {
-            text-align: center;
-            margin-bottom: 40px;
-        }
-        .main-header h1 {
-            font-size: 3.5em;
-            font-weight: 800;
-            color: #004d40; /* Master header color */
-            margin: 0;
-        }
-        .main-header p {
-            font-size: 1.5em;
-            color: #00796b; /* Lighter master color */
-            margin-top: 10px;
-        }
-        .card-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
-        }
-        .card {
-            color: white;
-            border-radius: 20px;
-            padding: 30px;
-            display: flex;
+        /* Mobile Responsive */
+        .menu-toggle {
+            display: none;
             flex-direction: column;
             justify-content: space-between;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            min-height: 350px;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+            width: 30px;
+            height: 21px;
+            cursor: pointer;
+            padding: 5px;
         }
-        .card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+        .menu-toggle span {
+            height: 3px;
+            width: 100%;
+            background-color: #343a40;
+            transition: 0.3s;
+            border-radius: 3px;
         }
-        .card-icon {
-            font-size: 4em;
-            text-align: center;
-            margin-bottom: 20px;
-        }
-        .card-title {
-            font-size: 1.8em;
-            font-weight: 700;
-            text-align: center;
-            margin: 0;
-        }
-        .card-subtitle {
-            text-align: center;
-            font-size: 1em;
-            opacity: 0.8;
-            margin-bottom: 20px;
-        }
-        .card ul {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-            text-align: center;
-        }
-        .card li {
-            margin-bottom: 12px;
-            font-size: 1.1em;
-        }
-        /* Card Colors (Preserved) */
-        .card-1 { background: linear-gradient(135deg, #007bff, #0056b3); }
-        .card-2 { background: linear-gradient(135deg, #17a2b8, #0f6674); }
-        .card-3 { background: linear-gradient(135deg, #28a745, #19692c); }
-        .card-4 { background: linear-gradient(135deg, #6f42c1, #4a2c82); }
-
-        .conclusion-banner {
-            background: #004d40; /* Master header color */
-            color: #fff;
-            text-align: center;
-            padding: 40px 20px;
-            margin-top: 40px;
-            border-radius: 20px;
-        }
-        .conclusion-banner h2 {
-            font-size: 2.5em;
-            font-weight: 800;
-            margin: 0;
-        }
-        .conclusion-banner p {
-            font-size: 1.2em;
-            margin-top: 10px;
-            opacity: 0.9;
-        }
-        footer {
-            text-align: center;
-            padding: 40px 20px;
-            color: #6c757d;
+        @media (max-width: 992px) {
+            .navbar-links {
+                position: fixed;
+                left: -100%;
+                top: 70px;
+                flex-direction: column;
+                background-color: white;
+                width: 100%;
+                text-align: center;
+                transition: 0.3s;
+                box-shadow: 0 10px 27px rgba(0,0,0,0.05);
+                padding: 20px 0;
+            }
+            .navbar-links.active {
+                left: 0;
+            }
+            .navbar-links a {
+                padding: 15px;
+                display: block;
+                border-bottom: 1px solid #e9ecef;
+            }
+            .dropdown {
+                width: 100%;
+            }
+            .dropdown-content {
+                position: static;
+                box-shadow: none;
+                border-radius: 0;
+                display: none;
+                background-color: #f8f9fa;
+            }
+            .dropdown.active .dropdown-content {
+                display: block;
+            }
+            .dropdown.mobile-active .dropdown-content {
+                display: block;
+            }
+            .menu-toggle {
+                display: flex;
+            }
         }
     </style>
 </head>
 <body>
+    <header class="navbar">
+        <a href="index.html" class="navbar-brand">
+            <img src="https://i.postimg.cc/bvc3fm2r/apopa-logo.png" alt="APOPA Logo" style="height: 40px; margin-right: 10px;">
+            NCCS Site Visit
+        </a>
+        <nav class="navbar-links">
+            <a href="index.html"><i class="fas fa-home"></i> Home</a>
+            <a href="Visit Detail.html"><i class="fas fa-info-circle"></i> Visit Details</a>
+            <a href="NCCS Detail.html"><i class="fas fa-book-open"></i> NCCS Deep Dive</a>
+            <a href="SharingAI.html"><i class="fas fa-robot"></i> AI Sharing Session</a>
+            <div class="dropdown">
+                <a href="#"><i class="fas fa-ellipsis-h"></i> More</a>
+                <div class="dropdown-content">
+                    <a href="Participants.html"><i class="fas fa-users"></i> Participants</a>
+                    <a href="Logistic Plan.html"><i class="fas fa-calendar-alt"></i> Logistics</a>
+                    <a href="Flashcards.html"><i class="fas fa-graduation-cap"></i> Flashcards Game</a>
+                    <a href="APOPA.html"><i class="fas fa-building"></i> About APOPA</a>
+                </div>
+            </div>
+        </nav>
+        <div class="menu-toggle">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </header>
+
     <div class="container">
         <header class="main-header">
             <h1>ถอดรหัสอนาคตเภสัชกรรมมะเร็ง</h1>
@@ -179,5 +165,39 @@
             <p>ออกแบบโดยเภสัชกรวิรุณ เวชศิริ</p>
         </footer>
     </div>
+    <script src="assets/js/script.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const menuToggle = document.querySelector('.menu-toggle');
+            const navbarLinks = document.querySelector('.navbar-links');
+            
+            menuToggle.addEventListener('click', function() {
+                navbarLinks.classList.toggle('active');
+            });
+            
+            // Close mobile menu when clicking on a link
+            const navLinks = document.querySelectorAll('.navbar-links a');
+            navLinks.forEach(link => {
+                link.addEventListener('click', () => {
+                    if (window.innerWidth <= 992) {
+                        navbarLinks.classList.remove('active');
+                    }
+                });
+            });
+            
+            // Handle dropdown in mobile view
+            const dropdown = document.querySelector('.dropdown');
+            const dropdownLink = dropdown.querySelector('a');
+            
+            if (window.innerWidth <= 992) {
+                dropdownLink.addEventListener('click', function(e) {
+                    if (navbarLinks.classList.contains('active')) {
+                        e.preventDefault();
+                        dropdown.classList.toggle('active');
+                    }
+                });
+            }
+        });
+    </script>
 </body>
 </html>
