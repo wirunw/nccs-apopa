@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>List of Participants</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Sarabun', sans-serif;
+            background-color: #f8f9fa;
+            color: #343a40;
+            margin: 0;
+            padding-top: 70px; /* Space for fixed navbar */
+            line-height: 1.7;
+        }
+        /* Navbar Styles */
+        .navbar {
+            background-color: #fff;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+            height: 70px;
+        }
+        .navbar-brand {
+            font-weight: 700;
+            font-size: 1.4em;
+            color: #00796b;
+            text-decoration: none;
+        }
+        .navbar-links {
+            display: flex;
+            gap: 20px;
+        }
+        .navbar-links a {
+            text-decoration: none;
+            color: #343a40;
+            font-weight: 600;
+            padding: 10px;
+            border-radius: 6px;
+            transition: background-color 0.2s;
+        }
+        .navbar-links a:hover, .navbar-links a.active {
+            background-color: #e0f2f1;
+            color: #004d40;
+        }
+        .dropdown {
+            position: relative;
+        }
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            top: 100%;
+            right: 0;
+            background-color: #fff;
+            min-width: 200px;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+            border-radius: 8px;
+            padding: 10px 0;
+        }
+        .dropdown-content a {
+            display: block;
+            padding: 12px 16px;
+        }
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+        /* Main Content Styles */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+        .hero {
+            text-align: center;
+            padding: 30px 20px;
+            background-color: #00796b;
+            color: white;
+            border-radius: 12px;
+            margin-bottom: 40px;
+        }
+        .hero h1 { font-size: 2.5em; }
+        h2 { font-size: 2em; color: #004d40; border-bottom: 3px solid #00796b; padding-bottom: 10px; margin-top: 40px; margin-bottom: 30px; }
+        .participants-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 25px; }
+        .participant-card { background: #fff; border-radius: 12px; box-shadow: 0 5px 15px rgba(0,0,0,0.07); padding: 20px; display: flex; flex-direction: column; transition: transform 0.2s ease, box-shadow 0.2s ease; }
+        .participant-card:hover { transform: translateY(-5px); box-shadow: 0 8px 20px rgba(0,0,0,0.1); }
+        .card-header { display: flex; align-items: center; gap: 15px; border-bottom: 1px solid #e9ecef; padding-bottom: 15px; margin-bottom: 15px; }
+        .avatar-placeholder { width: 60px; height: 60px; border-radius: 50%; background-color: #e0f2f1; color: #00796b; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 1.5em; }
+        .participant-info h3 { margin: 0; font-size: 1.2em; font-weight: 700; color: #343a40; }
+        .participant-info p { margin: 5px 0 0 0; font-size: 0.9em; color: #6c757d; }
+        .focus-tag { align-self: flex-start; margin-top: auto; padding: 5px 12px; border-radius: 15px; font-size: 0.8em; font-weight: 600; }
+        .tag-informatics { background-color: #d1e7dd; color: #0f5132; }
+        .tag-home-care { background-color: #cff4fc; color: #055160; }
+        .tag-home-chemotherapy { background-color: #fff3cd; color: #664d03; }
+    </style>
+</head>
+<body>
+
+    <header class="navbar">
+        <a href="index.html" class="navbar-brand">NCCS Site Visit</a>
+        <nav class="navbar-links">
+            <a href="index.html">Home</a>
+            <a href="Visit Detail.html">Visit Details</a>
+            <a href="NCCS Detail.html">NCCS Deep Dive</a>
+            <a href="SharingAI.html">AI Sharing Session</a>
+            <div class="dropdown">
+                <a href="#">More</a>
+                <div class="dropdown-content">
+                    <a href="Participants.html" class="active">Participants</a>
+                    <a href="Logistic Plan.html">Logistics</a>
+                    <a href="Flashcards.html">Flashcards Game</a>
+                    <a href="APOPA.html">About APOPA</a>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <div class="container">
+        <header class="hero">
+            <h1>List of Participants</h1>
+        </header>
+
+        <main>
+            <section>
+                <h2>💡 Informatics</h2>
+                <div class="participants-grid">
+                    <!-- Informatics Participants -->
+                    <div class="participant-card"> <div class="card-header"><div class="avatar-placeholder">KR</div><div class="participant-info"><h3>Kamonsak Reungjarearnrung</h3><p>President</p></div></div> <span class="focus-tag tag-informatics">Informatics</span> </div>
+                    <div class="participant-card"> <div class="card-header"><div class="avatar-placeholder">SS</div><div class="participant-info"><h3>Suphat Subongkot</h3><p>Vice president</p></div></div> <span class="focus-tag tag-informatics">Informatics</span> </div>
+                    <div class="participant-card"> <div class="card-header"><div class="avatar-placeholder">KS</div><div class="participant-info"><h3>Komkrit Srisawai</h3><p>Head of pharmacy informatics committee</p></div></div> <span class="focus-tag tag-informatics">Informatics</span> </div>
+                    <div class="participant-card"> <div class="card-header"><div class="avatar-placeholder">WW</div><div class="participant-info"><h3>Wirun Wetsiri</h3><p>Consultant of pharmacy informatics committee</p></div></div> <span class="focus-tag tag-informatics">Informatics</span> </div>
+                    <div class="participant-card"> <div class="card-header"><div class="avatar-placeholder">JP</div><div class="participant-info"><h3>Jirayu Phuekpan</h3><p>Pharmacy informatics committee</p></div></div> <span class="focus-tag tag-informatics">Informatics</span> </div>
+                    <div class="participant-card"> <div class="card-header"><div class="avatar-placeholder">NS</div><div class="participant-info"><h3>Natchanon Sathapanapitagkit</h3><p>Secretary of pharmacy Informatics Taskforce</p></div></div> <span class="focus-tag tag-informatics">Informatics</span> </div>
+                    <div class="participant-card"> <div class="card-header"><div class="avatar-placeholder">AR</div><div class="participant-info"><h3>Atchara Rimsakorn</h3><p>Informatics</p></div></div> <span class="focus-tag tag-informatics">Informatics</span> </div>
+                    <div class="participant-card"> <div class="card-header"><div class="avatar-placeholder">DI</div><div class="participant-info"><h3>Dr.Tanat Incharoen</h3><p>Informatics</p></div></div> <span class="focus-tag tag-informatics">Informatics</span> </div>
+                    <div class="participant-card"> <div class="card-header"><div class="avatar-placeholder">MK</div><div class="participant-info"><h3>Muthita Khamvisat</h3><p>Informatics</p></div></div> <span class="focus-tag tag-informatics">Informatics</span> </div>
+                </div>
+            </section>
+
+            <section>
+                <h2>🏠 Home Care</h2>
+                <div class="participants-grid">
+                    <div class="participant-card"> <div class="card-header"><div class="avatar-placeholder">UR</div><div class="participant-info"><h3>Udomluck Rungsiyapornrat</h3><p>Head of Professional committee</p></div></div> <span class="focus-tag tag-home-care">Home Care</span> </div>
+                    <div class="participant-card"> <div class="card-header"><div class="avatar-placeholder">JY</div><div class="participant-info"><h3>Jukapun Yoodee</h3><p>Academic affairs and international relations committee</p></div></div> <span class="focus-tag tag-home-care">Home Care</span> </div>
+                    <div class="participant-card"> <div class="card-header"><div class="avatar-placeholder">SC</div><div class="participant-info"><h3>Suthan Chanthawong</h3><p>Secretary</p></div></div> <span class="focus-tag tag-home-care">Home Care</span> </div>
+                    <div class="participant-card"> <div class="card-header"><div class="avatar-placeholder">WW</div><div class="participant-info"><h3>Wannaporn Wattanawong</h3><p>Treasurer</p></div></div> <span class="focus-tag tag-home-care">Home Care</span> </div>
+                    <div class="participant-card"> <div class="card-header"><div class="avatar-placeholder">MS</div><div class="participant-info"><h3>Manit Saeteaw</h3><p>Head of academic affairs and international relations committee</p></div></div> <span class="focus-tag tag-home-care">Home Care</span> </div>
+                </div>
+            </section>
+
+            <section>
+                <h2>🧪 Home Chemotherapy</h2>
+                <div class="participants-grid">
+                    <div class="participant-card"> <div class="card-header"><div class="avatar-placeholder">NK</div><div class="participant-info"><h3>Nirachorn Kuchonthara</h3><p>Professional committee</p></div></div> <span class="focus-tag tag-home-chemotherapy">Home Chemotherapy</span> </div>
+                    <div class="participant-card"> <div class="card-header"><div class="avatar-placeholder">CA</div><div class="participant-info"><h3>Chatchanin Ajalanond</h3><p>Professional committee</p></div></div> <span class="focus-tag tag-home-chemotherapy">Home Chemotherapy</span> </div>
+                    <div class="participant-card"> <div class="card-header"><div class="avatar-placeholder">TT</div><div class="participant-info"><h3>Trai Tharnpanich</h3><p>Academic affairs and international relations committee</p></div></div> <span class="focus-tag tag-home-chemotherapy">Home Chemotherapy</span> </div>
+                    <div class="participant-card"> <div class="card-header"><div class="avatar-placeholder">CR</div><div class="participant-info"><h3>Cholada Ratanatharathorn</h3><p>Academic affairs and international relations committee</p></div></div> <span class="focus-tag tag-home-chemotherapy">Home Chemotherapy</span> </div>
+                    <div class="participant-card"> <div class="card-header"><div class="avatar-placeholder">SC</div><div class="participant-info"><h3>Sriwatree Chawsamtong</h3><p>Assistant secretary</p></div></div> <span class="focus-tag tag-home-chemotherapy">Home Chemotherapy</span> </div>
+                </div>
+            </section>
+
+        </main>
+    </div>
+</body>
+</html>

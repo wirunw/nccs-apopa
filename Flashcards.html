@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NCCS Study Visit Flashcards</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@400;600;700&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', 'Sarabun', sans-serif;
+            /* 1. เปลี่ยนเป็น Light Mode ที่สบายตา */
+            background-color: #f4f7f6; /* light-gray */
+            color: #1f2937; /* gray-800 */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            padding: 1rem;
+            padding-top: 100px; /* Space for fixed navbar */
+        }
+        .container {
+            width: 100%;
+            max-width: 500px;
+            margin: auto;
+            text-align: center;
+            /* 2. ทำให้ตัวแอปเป็นการ์ดลอยๆ */
+            background-color: #ffffff;
+            border-radius: 16px;
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.07);
+            padding: 2.5rem;
+        }
+        h1 {
+            font-size: 2rem; /* 32px */
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+        }
+
+        /* 3. สไตล์ปุ่มเลือก Deck ใหม่ */
+        .deck-selector {
+            display: flex;
+            gap: 0.75rem;
+            margin-bottom: 1.5rem;
+        }
+        .deck-btn {
+            width: 50%;
+            padding: 0.75rem 1rem;
+            font-size: 1rem;
+            font-weight: 600;
+            border: 2px solid #e5e7eb; /* gray-200 */
+            border-radius: 0.5rem; /* 8px */
+            background-color: #fff;
+            color: #4b5563; /* gray-600 */
+            cursor: pointer;
+            transition: all 0.2s ease-in-out;
+        }
+        .deck-btn:hover {
+            background-color: #f9fafb; /* gray-50 */
+        }
+        /* สไตล์ปุ่ม active ของ Basic */
+        .deck-btn.active-basic {
+            border-color: #059669; /* emerald-600 */
+            background-color: #ecfdf5; /* emerald-50 */
+            color: #065f46; /* emerald-800 */
+            box-shadow: 0 2px 4px rgba(5, 150, 105, 0.1);
+        }
+        /* สไตล์ปุ่ม active ของ Deep Dive */
+        .deck-btn.active-deep {
+            border-color: #0e7490; /* cyan-700 */
+            background-color: #ecfeff; /* cyan-50 */
+            color: #155e75; /* cyan-800 */
+            box-shadow: 0 2px 4px rgba(14, 116, 144, 0.1);
+        }
+
+        .scene {
+            width: 100%;
+            height: 320px;
+            perspective: 1000px;
+            margin-bottom: 1.5rem;
+        }
+        .card {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            cursor: pointer;
+            transform-style: preserve-3d;
+            transition: transform 0.7s cubic-bezier(0.4, 0.0, 0.2, 1);
+        }
+        .card.is-flipped {
+            transform: rotateY(180deg);
+        }
+        .card__face {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            padding: 2rem;
+            /* 4. อัปเกรดเงาและขอบมนของการ์ด */
+            border-radius: 12px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05);
+            box-sizing: border-box;
+            border: 1px solid #e5e7eb; /* gray-200 */
+        }
+        .card__face--front {
+            background-color: #ffffff;
+            color: #1f2937;
+        }
+        .card__face--back {
+            background-color: #059669; /* emerald-600 */
+            color: white;
+            transform: rotateY(180deg);
+            border-color: #059669;
+        }
+        /* 5. สไตล์สีด้านหลังการ์ดสำหรับ Deep Dive */
+        .card__face--back.deep-dive {
+            background-color: #0e7490; /* cyan-700 */
+            border-color: #0e7490;
+        }
+
+        .card-label {
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: #9ca3af; /* gray-400 */
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .card__face--back .card-label {
+            color: rgba(255,255,255,0.7);
+        }
+        #card-front { font-size: 1.75rem; font-weight: 600; }
+        #card-back { font-size: 1.25rem; }
+
+        /* 6. สไตล์ Progress Bar */
+        .progress-container {
+            width: 100%;
+            background-color: #e5e7eb; /* gray-200 */
+            border-radius: 99px;
+            height: 10px;
+            margin-bottom: 0.5rem;
+            overflow: hidden;
+        }
+        #progress-bar {
+            height: 100%;
+            width: 0%;
+            border-radius: 99px;
+            transition: width 0.3s ease, background-color 0.3s ease;
+        }
+        #progress-bar.basic {
+            background-color: #059669; /* emerald-600 */
+        }
+        #progress-bar.deep {
+            background-color: #0e7490; /* cyan-700 */
+        }
+
+        #progress-text {
+            color: #6b7280; /* gray-500 */
+            margin-bottom: 1.5rem;
+            font-size: 0.9rem;
+        }
+        
+        .nav-buttons {
+            display: flex;
+            justify-content: space-between;
+            gap: 1rem;
+        }
+        .nav-btn {
+            width: 100%;
+            padding: 0.8rem 1rem;
+            border: none;
+            border-radius: 0.5rem;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            /* 7. เพิ่มอนิเมชันให้ปุ่ม */
+            transition: all 0.2s ease-in-out;
+        }
+        .nav-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+        }
+        #prev-btn {
+            background-color: #4b5563; /* gray-600 */
+            color: white;
+        }
+        #prev-btn:hover { background-color: #374151; }
+        #next-btn {
+            /* สีจะถูกกำหนดโดย JS */
+            color: white;
+        }
+        
+        /* Navbar Styles (from original code) */
+        .navbar {
+            background-color: #fff;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+            height: 70px;
+        }
+        .navbar-brand {
+            font-weight: 700;
+            font-size: 1.4em;
+            color: #00796b;
+            text-decoration: none;
+        }
+        .navbar-links {
+            display: flex;
+            gap: 20px;
+        }
+        .navbar-links a {
+            text-decoration: none;
+            color: #343a40;
+            font-weight: 600;
+            padding: 10px;
+            border-radius: 6px;
+            transition: background-color 0.2s;
+        }
+        .navbar-links a:hover, .navbar-links a.active {
+            background-color: #e0f2f1;
+            color: #004d40;
+        }
+        .dropdown {
+            position: relative;
+        }
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            top: 100%;
+            right: 0;
+            background-color: #fff;
+            min-width: 200px;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+            border-radius: 8px;
+            padding: 10px 0;
+        }
+        .dropdown-content a {
+            display: block;
+            padding: 12px 16px;
+        }
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <header class="navbar">
+        <a href="index.html" class="navbar-brand">NCCS Site Visit</a>
+        <nav class="navbar-links">
+            <a href="index.html">Home</a>
+            <a href="Visit Detail.html">Visit Details</a>
+            <a href="NCCS Detail.html">NCCS Deep Dive</a>
+            <a href="SharingAI.html">AI Sharing Session</a>
+            <div class="dropdown">
+                <a href="#">More</a>
+                <div class="dropdown-content">
+                    <a href="Participants.html">Participants</a>
+                    <a href="Logistic Plan.html">Logistics</a>
+                    <a href="Flashcards.html" class="active">Flashcards Game</a>
+                    <a href="APOPA.html">About APOPA</a>
+                </div>
+            </div>
+        </nav>
+    </header>
+    
+    <div class="container">
+        <h1>NCCS Flashcards</h1>
+        
+        <!-- เปลี่ยนจาก Select เป็น Buttons -->
+        <div class="deck-selector">
+            <button id="deck-btn-basic" class="deck-btn">ชุดพื้นฐาน (Facts)</button>
+            <button id="deck-btn-deepDive" class="deck-btn">ชุดเจาะลึก (Concepts)</button>
+        </div>
+
+        <div class="scene">
+            <div id="flashcard" class="card">
+                <div class="card__face card__face--front">
+                    <div class="card-label">คำถาม</div>
+                    <p id="card-front"></p>
+                    <div class="card-label" style="position: absolute; bottom: 20px; color: #adb5bd; font-style: italic; font-weight: 400;">(คลิกเพื่อพลิกดูคำตอบ)</div>
+                </div>
+                <div id="card-back-face" class="card__face card__face--back">
+                    <div class="card-label">คำตอบ</div>
+                    <p id="card-back"></p>
+                </div>
+            </div>
+        </div>
+
+        <!-- เพิ่ม Progress Bar -->
+        <div class="progress-container">
+            <div id="progress-bar"></div>
+        </div>
+        <div id="progress-text" class="progress-text"></div>
+
+        <div class="nav-buttons">
+            <button id="prev-btn" class="nav-btn">&larr; ก่อนหน้า</button>
+            <button id="next-btn" class="nav-btn">ถัดไป &rarr;</button>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            
+            // ข้อมูลทั้ง 2 Deck (ครบถ้วน)
+            const decks = {
+                basic: [
+                    { q: "NCCS ย่อมาจากอะไร?", a: "National Cancer Centre Singapore" },
+                    { q: "NCCS อยู่ในเครือข่ายสุขภาพใด?", a: "SingHealth (Singapore Health Services)" },
+                    { q: "APOPA ย่อมาจากอะไร?", a: "Asia Pacific Oncology Pharmacy Association" },
+                    { q: "การดูงานครั้งนี้จัดขึ้นวันที่เท่าไหร่?", a: "24 – 25 ตุลาคม 2025" },
+                    { q: "หัวข้อหลัก (Theme) ของการดูงานครั้งนี้คืออะไร?", a: "Pharmacy Informatics and Home Care Systems" },
+                    { q: "สถานที่จัดงานใน Day 1 คือที่ไหน?", a: "NCCS, Room 21-9" },
+                    { q: "วัตถุประสงค์ข้อที่ 1 คือการศึกษาเรื่องใด?", a: "การประยุกต์ใช้ Pharmaceutical Informatics ในงานเภสัชกรรมมะเร็ง" },
+                    { q: "วัตถุประสงค์ข้อที่ 2 คือการเรียนรู้เรื่องใด?", a: "กรอบแนวคิด (Framework) การบริการผู้ป่วยและเคมีบำบัดที่บ้าน (Home Care & Home Chemo)" },
+                    { q: "วัตถุประสงค์ข้อที่ 3 คือการเรียนรู้ทักษะด้านใด?", a: "Project Management, Change Management, และ Organizational Leadership" },
+                    { q: "วัตถุประสงค์ข้อที่ 4 คืออะไร?", a: "กระชับความสัมพันธ์และความร่วมมือระหว่าง APOPA และ NCCS" },
+                    { q: "วิทยากรที่คาดว่าจะบรรยายเรื่อง 'SingHealth & Group Pharmacy' คือใคร?", a: "Dr. Lita Chew (Group Chief Pharmacist, SingHealth)" },
+                    { q: "วิทยากรที่คาดว่าจะบรรยายเรื่อง 'NCCS & NCCS Pharmacy' คือใคร?", a: "Ms. Lim Siew Woon (Chief Pharmacist, NCCS)" },
+                    { q: "SingHealth คืออะไร?", a: "เครือข่ายระบบสุขภาพ (Ecosystem) ที่ NCCS สังกัดอยู่" },
+                    { q: "Oncology คืออะไร?", a: "มะเร็งวิทยา หรือศาสตร์ที่เกี่ยวข้องกับโรคมะเร็ง" },
+                    { q: "หัวข้อแรกใน Day 1 คือการแนะนำเรื่องใด?", a: "ภาพรวม SingHealth Ecosystem และการนำเทคโนโลยีมาใช้ (Tech Adoption)" },
+                    { q: "Pharmacy Informatics คืออะไร?", a: "สารสนเทศศาสตร์ทางเภสัชกรรม (การใช้ IT และข้อมูลเพื่องานเภสัชกรรม)" },
+                    { q: "วัตถุประสงค์ระบุถึงการใช้ 'Mobile Applications' เพื่ออะไร?", a: "เพื่อการดูแลผู้ป่วยมะเร็ง (Cancer patient care)" },
+                    { q: "คำว่า 'Remote Patient Monitoring' (RPM) หมายถึงอะไร?", a: "การติดตามผู้ป่วยระยะไกล (เป็นหนึ่งในหัวข้อที่ผู้เข้าร่วมสนใจ)" },
+                    { q: "ประโยชน์ของ Mobile App และ RPM คืออะไร?", a: "ช่วยให้ติดตามอาการ, การใช้ยา, และจัดการผลข้างเคียงได้เร็วขึ้น" },
+                    { q: "Telepharmacy (เภสัชกรรมทางไกล) คืออะไร?", a: "การให้บริการทางเภสัชกรรม (เช่น ให้คำปรึกษา) ผ่านระบบสื่อสารทางไกล" },
+                    { q: "EHR หรือ EMR ย่อมาจากอะไร?", a: "Electronic Health Record (เวชระเบียนอิเล็กทรอนิกส์)" },
+                    { q: "EHR เกี่ยวข้องกับ Informatics อย่างไร?", a: "เป็นระบบข้อมูลสุขภาพหลักที่ระบบอื่นๆ (เช่น ระบบยา) ต้องเชื่อมต่อ" },
+                    { q: "AI (ปัญญาประดิษฐ์) สามารถช่วยงาน Informatics ด้านใด?", a: "ช่วยสนับสนุนการตัดสินใจทางคลินิก (Clinical Decision Support)" },
+                    { q: "หัวข้อ 'SingHealth tech adoption' คือการเรียนรู้เกี่ยวกับอะไร?", a: "การนำเทคโนโลยีและนวัตกรรมมาปรับใช้ในเครือ SingHealth" },
+                    { q: "Informatics ช่วยเพิ่มความปลอดภัยของผู้ป่วยได้อย่างไร?", a: "ลดความผิดพลาดในการสั่งยา/จ่ายยา, ตรวจสอบปฏิกิริยาระหว่างยา (DDI) อัตโนมัติ" },
+                    { q: "วัตถุประสงค์ระบุถึงการใช้ 'Robotic systems' เพื่องานใด?", a: "การเตรียมยาต้านมะเร็ง (Preparing anticancer drugs)" },
+                    { q: "ประโยชน์หลักของหุ่นยนต์เตรียมยาต่อ 'เภสัชกร' คืออะไร?", a: "ความปลอดภัย (Safety) - ลดการสัมผัสยาเคมีบำบัด" },
+                    { q: "ประโยชน์หลักของหุ่นยนต์เตรียมยาต่อ 'ผู้ป่วย' คืออะไร?", a: "ความแม่นยำสูง (Accuracy) และความปราศจากเชื้อ (Sterility)" },
+                    { q: "CSTD ย่อมาจากอะไร?", a: "Closed-System Transfer Devices (อุปกรณ์ถ่ายโอนยาในระบบปิด)" },
+                    { q: "Robotics เป็นหัวข้อที่อยู่ในความสนใจของใครบ้าง?", a: "คุณสุธาน, คุณศรีวตรี, คุณวรรณพร, คุณชัชนินทร์" },
+                    { q: "บริการ 'Home Chemotherapy' คืออะไร?", a: "การให้บริการเคมีบำบัดแก่ผู้ป่วยที่บ้าน" },
+                    { q: "บริการ 'Home Care after Chemotherapy' คืออะไร?", a: "การดูแลต่อเนื่องที่บ้าน 'หลังจาก' ได้รับเคมีบำบัด (เช่น จัดการผลข้างเคียง)" },
+                    { q: "คำว่า 'Framework' ใน 'framework for delivering... care' หมายถึงอะไร?", a: "กรอบแนวคิด หรือโครงสร้างของระบบบริการ (เช่น ขั้นตอน, มาตรฐาน, ผู้รับผิดชอบ)" },
+                    { q: "ประโยชน์หลักของ Home Chemotherapy ต่อ 'ผู้ป่วย' คือ?", a: "ความสะดวกสบาย, ลดเวลาเดินทาง, อยู่ในสภาพแวดล้อมที่คุ้นเคย" },
+                    { q: "ประโยชน์หลักของ Home Chemotherapy ต่อ 'โรงพยาบาล' คือ?", a: "ลดความแออัดของหอผู้ป่วยเคมีบำบัด (Day Care)" },
+                    { q: "Home Care เป็นหัวข้อที่อยู่ในความสนใจของใครบ้าง?", a: "คุณมนัส, คุณไตร, คุณจักรพันธ์, คุณชลดา (และคนอื่นๆ)" },
+                    { q: "ความท้าทายสำคัญของ Home Chemotherapy คืออะไร?", a: "การคัดเลือกผู้ป่วยที่เหมาะสม, ความปลอดภัย, และการจัดการเหตุฉุกเฉิน" },
+                    { q: "เทคโนโลยีใดที่สนับสนุนการทำ Home Care?", a: "Mobile Applications และ Remote Patient Monitoring (RPM)" },
+                    { q: "บทบาทเภสัชกรใน Home Care คืออะไร?", a: "ประเมินผู้ป่วย, ให้คำปรึกษาเรื่องยา, ติดตามผลข้างเคียง (Telepharmacy)" },
+                    { q: "คำว่า 'Patient-centric care' หมายความว่าอย่างไร?", a: "การดูแลโดยยึดผู้ป่วยเป็นศูนย์กลาง (คำนึงถึงความต้องการของผู้ป่วย)" },
+                    { q: "ทักษะ 'Project Management' (การบริหารโครงการ) คืออะไร?", a: "การวางแผน, ดำเนินการ, และควบคุมโครงการให้บรรลุเป้าหมาย (เช่น การติดตั้งระบบใหม่)" },
+                    { q: "ทักษะ 'Change Management' (การบริหารการเปลี่ยนแปลง) คืออะไร?", a: "กระบวนการเตรียมพร้อมและสนับสนุนบุคลากรให้ยอมรับการเปลี่ยนแปลง (เช่น เปลี่ยนมาใช้หุ่นยนต์)" },
+                    { q: "ทำไม 'Change Management' จึงสำคัญในการนำเทคโนโลยีใหม่มาใช้?", a: "เพื่อลดแรงต้านทานจากบุคลากร และช่วยให้พวกเขาปรับตัวได้สำเร็จ" },
+                    { q: "ทักษะ 'Organizational Leadership' คืออะไร?", a: "ภาวะผู้นำในองค์กร (เช่น การมีวิสัยทัศน์, การสร้างแรงบันดาลใจให้ทีม)" },
+                    { q: "มาตรฐานที่ผู้เข้าร่วมสนใจเรียนรู้คืออะไร?", a: "Singapore Oncology Pharmacy Practice Standards" },
+                    { q: "มาตรฐานการปฏิบัติงาน (Practice Standards) มีไว้เพื่ออะไร?", a: "เพื่อให้มั่นใจในคุณภาพ (Quality) และความปลอดภัย (Safety) ของการบริการ" },
+                    { q: "คำว่า 'SingHealth’s ecosystem' หมายถึงอะไร?", a: "ระบบนิเวศทางสุขภาพของ SingHealth (เครือข่าย รพ. คลินิก และบริการที่เชื่อมโยงกัน)" },
+                    { q: "การดูงานครั้งนี้มุ่งเน้นทักษะ 'Soft Skills' ด้านใด?", a: "การบริหารโครงการ, การบริหารการเปลี่ยนแปลง, และภาวะผู้นำ" },
+                    { q: "ผู้เข้าร่วมจาก APOPA มีบทบาทใดบ้าง?", a: "Professional committee, Academic affairs, Secretary (เลขาฯ), Treasurer (เหรัญญิก)" },
+                    { q: "ผลลัพธ์ที่คาดหวัง (Expected Outcome) ของการดูงานนี้คือ?", a: "ผู้เข้าร่วมได้ความรู้และทักษะไปประยุกต์ใช้ในองค์กรของตนเอง และเกิดความร่วมมือ" }
+                ],
+                deepDive: [
+                    { q: "มาตรฐานการแลกเปลี่ยนข้อมูลสุขภาพที่สิงคโปร์ (และทั่วโลก) กำลังผลักดันให้ใช้คืออะไร?", a: "HL7 FHIR (Fast Healthcare Interoperability Resources) ซึ่งเป็นมาตรฐานที่ช่วยให้ระบบ EHR, ระบบห้องยา, และแอปพลิเคชันต่างๆ 'คุยกันรู้เรื่อง'" },
+                    { q: "โครงการระดับชาติของสิงคโปร์ที่ใช้ FHIR อย่างจริงจัง คือโครงการอะไร?", a: "Healthier SG ซึ่งเป็นโครงการปฏิรูประบบสุขภาพที่เน้นการป้องกันโรค โดยอาศัยการเชื่อมโยงข้อมูลอย่างสมบูรณ์" },
+                    { q: "Clinical Decision Support (CDS) ในงานเภสัชกรรมมะเร็งที่ซับซ้อน มักใช้ข้อมูลใดมาประกอบการตัดสินใจ?", a: "ข้อมูลจีโนมิกส์ (Genomic profiling) และ ผลตรวจไบโอมาร์คเกอร์ (Biomarker analysis) เพื่อสนับสนุนการเลือกใช้ยาแบบ Personalized Medicine" },
+                    { q: "Telepharmacy (เภสัชกรรมทางไกล) ในงานมะเร็ง มีประโยชน์หลัก 2 ด้าน คืออะไร?", a: "1. การติดตามอาการ/ผลข้างเคียง (Remote Monitoring) 2. การให้คำปรึกษาเพื่อเพิ่มความร่วมมือในการใช้ยา (Patient Adherence & Counselling)" },
+                    { q: "ความท้าทายหลัก 2 ประการของการใช้ Telepharmacy ในทางปฏิบัติคืออะไร?", a: "1. ปัญหาทางเทคนิค (Technical issues) เช่น ความเสถียรของระบบ 2. การขาดแคลนทรัพยากรและบุคลากร (Resource shortages) ในการมอนิเตอร์" },
+                    { q: "ตัวชี้วัดหลัก (KPI) ที่มักใช้ประเมินประสิทธิภาพของหุ่นยนต์เตรียมยาเคมีบำบัด คืออะไร?", a: "Turnaround Time (TAT) หรือ 'เวลารวมตั้งแต่แพทย์สั่งยาจนยาไปถึงผู้ป่วย' (การใช้หุ่นยนต์มักช่วยลดเวลานี้ได้)" },
+                    { q: "ในเชิงเศรษฐศาสตร์ การใช้หุ่นยนต์มี 'ต้นทุนต่อโดส' (Cost per dose) เทียบกับ 'การเตรียมด้วยมือ' (Manual) อย่างไร?", a: "มักมี 'ต้นทุนต่อโดสสูงกว่า' แต่จะคุ้มค่าเมื่อรวมประโยชน์ด้าน 'ความปลอดภัย' และ 'การประหยัดแรงงาน'" },
+                    { q: "'จุดคุ้มทุน' (Break-even Point) ของการลงทุนหุ่นยนต์เตรียมยา ขึ้นอยู่กับปัจจัยใดมากที่สุด?", a: "'ปริมาณการเตรียมยา' (Number of doses) ยิ่งเตรียมมาก ยิ่งคุ้มทุนเร็ว (เช่น งานวิจัยไทยชี้ว่าคุ้มทุนที่ประมาณ 41,000 โดส)" },
+                    { q: "CSTD ย่อมาจากอะไร และมาตรฐานสากล (เช่น USP 800) กำหนดให้ใช้เพื่ออะไร?", a: "Closed-System Transfer Devices (อุปกรณ์ถ่ายโอนยาในระบบปิด) ใช้เพื่อ 'ป้องกันบุคลากร' จากการสัมผัสยาอันตราย (Hazardous Drugs)" },
+                    { q: "อะไรคือความท้าทายทางเทคนิคของการใช้ CSTD เมื่อเทียบกับเข็มฉีดยาปกติ?", a: "'Residual Volume' หรือปริมาณยาที่อาจค้างอยู่ในอุปกรณ์ ซึ่งอาจส่งผลต่อความแม่นยำของยาในปริมาณน้อยๆ" },
+                    { q: "เทรนด์การออกแบบ CSTD ในปี 2025 เน้นเรื่องใด?", a: "'User-Friendly' หรือ 'การออกแบบให้ใช้งานง่าย' เพื่อลดขั้นตอนซับซ้อน และเพิ่มการยอมรับ (Adoption) ของบุคลากร" },
+                    { q: "ในมุมมองของผู้ป่วย ประโยชน์สูงสุดของ Home Chemotherapy คืออะไร?", a: "การได้รักษาใน 'Natural Habitat' (สภาพแวดล้อมที่คุ้นเคยเหมือนอยู่บ้าน) ซึ่งช่วยลดความเครียดและปรับตัวได้ดีกว่า" },
+                    { q: "ในเชิงกลยุทธ์ (Strategy) โรงพยาบาลต้องเลือกระหว่างโมเดลใดบ้างในการให้บริการนอกสถานที่?", a: "1. HChemo (Home Chemotherapy - ให้ที่บ้านผู้ป่วย) 2. MCU (Mobile Chemotherapy Unit - รถเคมีบำบัดเคลื่อนที่)" },
+                    { q: "ความท้าทายเชิงปฏิบัติการ (Operational Challenge) ที่ซับซ้อนที่สุดของ Home Chemotherapy คืออะไร?", a: "'การจัดตารางเวลาและการประสานงาน' (Scheduling & Coordination) ทรัพยากร (พยาบาล, เภสัชกร, ยา) ที่ต้องให้บริการหลายที่ (รพ., บ้าน, MCU)" },
+                    { q: "ในการส่งยาไปที่บ้าน ข้อจำกัดสำคัญที่ต้องควบคุมคืออะไร?", a: "'เวลาหมดอายุของยา' (Expiry Time) ยาที่เตรียมแล้วต้องถูกบริหารให้ผู้ป่วยก่อนที่จะหมดอายุ" },
+                    { q: "การนำระบบ 'Remote Patient Monitoring' (RPM) มาใช้ ขั้นตอนแรกที่สำคัญคืออะไร?", a: "'การออกแบบ Workflow' (Workflow Design) ที่ชัดเจน เช่น ใครมอนิเตอร์, จะทำอย่างไรเมื่อค่า 'Out-of-range', และการ Onboarding ผู้ป่วย" },
+                    { q: "KPI (Key Performance Indicators) ที่ใช้ในการวัดผล RPM มีอะไรบ้าง?", a: "เช่น % การลดลงของ ER Visit, % การ Re-admit, หรือ % ความสม่ำเสมอในการส่งข้อมูลของผู้ป่วย (Patient Adherence)" },
+                    { q: "Framework การบริหารการเปลี่ยนแปลง (Change Management) ที่เป็นที่ยอมรับ เช่น โมเดลของ Kotter ขั้นตอนแรกที่สำคัญที่สุดคืออะไร?", a: "'การสร้างความรู้สึกเร่งด่วน' (Create a Sense of Urgency) เพื่อให้ทีมเห็นว่า 'ทำไม' ต้องเปลี่ยนแปลง" },
+                    { q: "ในการผลักดันโครงการใหญ่ๆ ทำไม 'การสร้างชัยชนะระยะสั้น' (Produce Short-Term Wins) จึงมีความสำคัญ?", a: "เพื่อสร้างขวัญกำลังใจ (Morale) และพิสูจน์ให้เห็นว่าการเปลี่ยนแปลงเป็นไปได้จริง ช่วยลดแรงต้านทาน" },
+                    { q: "ในการนำเทคโนโลยีใหม่ (เช่น AI หรือ Robotics) มาใช้ 'Change Management' ต้องเน้นจัดการกับความกลัวใดของบุคลากร?", a: "ความกลัวว่าจะถูก 'แทนที่' (Replacement) และความรู้สึกว่า 'ทำงานยากขึ้น' ในช่วงแรก" },
+                    { q: "อีกหนึ่ง Framework ที่นิยมใช้ในการบริหารการเปลี่ยนแปลงคืออะไร?", a: "Prosci (หรือโมเดล ADKAR) ซึ่งเน้นการมีส่วนร่วมของผู้มีส่วนได้ส่วนเสีย (Stakeholder Engagement)" },
+                    { q: "ทักษะใดที่จำเป็นสำหรับ 'Project Management' ในการติดตั้งระบบหุ่นยนต์?", a: "การบริหารความเสี่ยง (Risk Management), การบริหารขอบเขตงาน (Scope Management), และการบริหารเวลา (Timeline Management)" }
+                ]
+            };
+
+            let currentDeck = 'basic';
+            let currentCardIndex = 0;
+            let isFlipped = false;
+
+            // อ้างอิง DOM Elements
+            const card = document.getElementById('flashcard');
+            const cardFront = document.getElementById('card-front');
+            const cardBack = document.getElementById('card-back');
+            const cardBackFace = document.getElementById('card-back-face');
+            const prevBtn = document.getElementById('prev-btn');
+            const nextBtn = document.getElementById('next-btn');
+            
+            // Element ใหม่
+            const deckBtnBasic = document.getElementById('deck-btn-basic');
+            const deckBtnDeepDive = document.getElementById('deck-btn-deepDive');
+            const progressBar = document.getElementById('progress-bar');
+            const progressText = document.getElementById('progress-text'); // เปลี่ยนจาก progress-indicator
+
+            function loadDeck(deckName) {
+                currentDeck = deckName;
+                currentCardIndex = 0;
+                
+                const isDeepDive = deckName === 'deepDive';
+
+                // สลับสไตล์ของปุ่มเลือก Deck
+                deckBtnBasic.classList.toggle('active-basic', !isDeepDive);
+                deckBtnDeepDive.classList.toggle('active-deep', isDeepDive);
+
+                // สลับสีด้านหลังการ์ด
+                cardBackFace.classList.toggle('deep-dive', isDeepDive);
+                
+                // สลับสี Progress Bar
+                progressBar.classList.toggle('basic', !isDeepDive);
+                progressBar.classList.toggle('deep', isDeepDive);
+                
+                // สลับสีปุ่ม Next
+                nextBtn.style.backgroundColor = isDeepDive ? '#0e7490' : '#059669';
+
+                resetCard(); // รีเซ็ตการ์ดเมื่อเปลี่ยน deck
+            }
+
+            function updateCardContent() {
+                const deckData = decks[currentDeck];
+                if (deckData.length > 0) {
+                    const currentCard = deckData[currentCardIndex];
+                    cardFront.textContent = currentCard.q;
+                    cardBack.textContent = currentCard.a;
+                    
+                    // อัปเดต Progress Bar และ Text
+                    const percentage = (currentCardIndex + 1) / deckData.length * 100;
+                    progressBar.style.width = `${percentage}%`;
+                    progressText.textContent = `การ์ด ${currentCardIndex + 1} / ${deckData.length}`;
+                }
+            }
+
+            function flipCard() {
+                isFlipped = !isFlipped;
+                card.classList.toggle('is-flipped');
+            }
+
+            function showNextCard() {
+                const deckData = decks[currentDeck];
+                if (deckData.length === 0) return;
+                currentCardIndex = (currentCardIndex + 1) % deckData.length;
+                resetCard();
+            }
+
+            function showPrevCard() {
+                const deckData = decks[currentDeck];
+                if (deckData.length === 0) return;
+                currentCardIndex = (currentCardIndex - 1 + deckData.length) % deckData.length;
+                resetCard();
+            }
+
+            function resetCard() {
+                if (isFlipped) {
+                    isFlipped = false;
+                    card.classList.remove('is-flipped');
+                    setTimeout(updateCardContent, 300); // รออนิเมชันพลิกกลับ
+                } else {
+                    updateCardContent();
+                }
+            }
+
+            // เปลี่ยน Event Listener จาก Select เป็น Buttons
+            deckBtnBasic.addEventListener('click', () => loadDeck('basic'));
+            deckBtnDeepDive.addEventListener('click', () => loadDeck('deepDive'));
+
+            card.addEventListener('click', flipCard);
+            nextBtn.addEventListener('click', showNextCard);
+            prevBtn.addEventListener('click', showPrevCard);
+
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'ArrowRight') showNextCard();
+                else if (e.key === 'ArrowLeft') showPrevCard();
+                else if (e.key === ' ') {
+                    e.preventDefault();
+                    flipCard();
+                }
+            });
+
+            // Initial Load
+            loadDeck('basic');
+        });
+    </script>
+</body>
+</html>

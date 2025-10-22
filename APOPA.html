@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>APOPA: เส้นทางเภสัชกรรมโรคมะเร็งไทย</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Sarabun', sans-serif;
+            background-color: #f8f9fa;
+            color: #343a40;
+            margin: 0;
+            padding-top: 70px; /* Space for fixed navbar */
+            line-height: 1.8;
+        }
+        /* Navbar Styles */
+        .navbar {
+            background-color: #fff;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+            height: 70px;
+        }
+        .navbar-brand {
+            font-weight: 700;
+            font-size: 1.4em;
+            color: #00796b;
+            text-decoration: none;
+        }
+        .navbar-links {
+            display: flex;
+            gap: 20px;
+        }
+        .navbar-links a {
+            text-decoration: none;
+            color: #343a40;
+            font-weight: 600;
+            padding: 10px;
+            border-radius: 6px;
+            transition: background-color 0.2s;
+        }
+        .navbar-links a:hover, .navbar-links a.active {
+            background-color: #e0f2f1;
+            color: #004d40;
+        }
+        .dropdown {
+            position: relative;
+        }
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            top: 100%;
+            right: 0;
+            background-color: #fff;
+            min-width: 200px;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+            border-radius: 8px;
+            padding: 10px 0;
+        }
+        .dropdown-content a {
+            display: block;
+            padding: 12px 16px;
+        }
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+        /* Main Content Styles */
+        .container {
+            max-width: 960px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+        .hero {
+            text-align: center;
+            padding: 40px 20px;
+            background-color: #00796b;
+            color: white;
+            border-radius: 12px;
+            margin-bottom: 40px;
+        }
+        .hero h1 { font-size: 3em; }
+        h2 { font-size: 2.2em; color: #004d40; border-bottom: 3px solid #00796b; padding-bottom: 10px; margin-top: 50px; margin-bottom: 30px; }
+        .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 25px; margin: 30px 0; }
+        .stat-card { background: #fff; padding: 25px; border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.07); border-left: 5px solid; }
+        .stat-card.red { border-color: #c62828; }
+        .stat-card.blue { border-color: #1565c0; }
+        .stat-card h3 { margin-top: 0; font-size: 1.4em; }
+        .timeline { position: relative; list-style: none; padding: 20px 0; margin-top: 40px; }
+        .timeline::before { content: ''; position: absolute; top: 0; left: 20px; height: 100%; width: 4px; background: #e0e0e0; }
+        .timeline-item { margin-bottom: 20px; position: relative; padding-left: 60px; }
+        .timeline-item::before { content: attr(data-year); position: absolute; left: -15px; top: 5px; width: 50px; height: 50px; border-radius: 50%; background: #00796b; color: white; display: flex; align-items: center; justify-content: center; font-weight: 700; border: 3px solid #f8f9fa; }
+        .pillars-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 25px; margin-top: 30px; }
+        .pillar-card { background: #fff; padding: 25px; border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.07); text-align: center; }
+        .pillar-card .icon { font-size: 3em; color: #00796b; }
+        .pillar-card h4 { font-size: 1.3em; margin: 15px 0 10px 0; }
+    </style>
+</head>
+<body>
+
+    <header class="navbar">
+        <a href="index.html" class="navbar-brand">NCCS Site Visit</a>
+        <nav class="navbar-links">
+            <a href="index.html">Home</a>
+            <a href="Visit Detail.html">Visit Details</a>
+            <a href="NCCS Detail.html">NCCS Deep Dive</a>
+            <a href="SharingAI.html">AI Sharing Session</a>
+            <div class="dropdown">
+                <a href="#">More</a>
+                <div class="dropdown-content">
+                    <a href="Participants.html">Participants</a>
+                    <a href="Logistic Plan.html">Logistics</a>
+                    <a href="Flashcards.html">Flashcards Game</a>
+                    <a href="APOPA.html" class="active">About APOPA</a>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <div class="container">
+        <header class="hero">
+            <h1>จาก APOPS สู่ APOPA</h1>
+            <p>ถอดรหัสเส้นทางเภสัชกรรมโรคมะเร็งไทย สู่การยกระดับการดูแลผู้ป่วย</p>
+        </header>
+
+        <section>
+            <h2>📊 บทนำ: ความท้าทายของ "มะเร็ง"</h2>
+            <p>ข้อมูลสถิติสาธารณสุขของไทยในช่วงหลายปีที่ผ่านมาสะท้อนภาพความจริงที่น่ากังวล: โรคมะเร็ง (Cancer) ได้กลายเป็นสาเหตุการเสียชีวิตอันดับหนึ่งของคนไทย แซงหน้าโรคหลอดเลือดในสมองและปอดอักเสบ โดยมีแนวโน้มเพิ่มขึ้นอย่างต่อเนื่อง</p>
+            <div class="stats-grid">
+                <div class="stat-card red">
+                    <h3>อัตราการเสียชีวิต</h3>
+                    <p>จาก <strong>107.3</strong> คน (ต่อประชากรแสนคน) ในปี 2557 เพิ่มเป็น <strong>120.3</strong> คน ในปี 2561</p>
+                </div>
+                <div class="stat-card blue">
+                    <h3>ข้อจำกัดด้านบุคลากร (ปี 2559)</h3>
+                    <p>เภสัชกร: <strong>1 : 5,137</strong> คน</p>
+                    <p>แพทย์: <strong>1 : 2,065</strong> คน</p>
+                </div>
+            </div>
+            <p>ในขณะที่จำนวนผู้ป่วยโรคมะเร็งเพิ่มสูงขึ้น ระบบสาธารณสุขกลับต้องเผชิญกับความท้าทายด้านบุคลากรทางการแพทย์ที่มีจำกัด การต่อสู้กับโรคร้ายที่มีความซับซ้อนสูงอย่างมะเร็ง จึงจำเป็นต้องอาศัยทีมงานผู้เชี่ยวชาญเฉพาะทาง และหนึ่งในบทบาทที่สำคัญอย่างยิ่งยวดคือ เภสัชกรผู้เชี่ยวชาญด้านโรคมะเร็ง (Oncology Pharmacist)</p>
+        </section>
+
+        <section>
+            <h2>⏳ การเดินทางกว่าสองทศวรรษ สู่มาตรฐานวิชาชีพ</h2>
+            <ul class="timeline">
+                <li class="timeline-item" data-year="1998"> <h4>จุดเริ่มต้น</h4> <p>มีการให้บริการผสมยาเคมีบำบัด (Cytotoxic Compounding Service) โดยเภสัชกรเป็นครั้งแรกในประเทศไทย</p> </li>
+                <li class="timeline-item" data-year="2003"> <h4>BCOP คนแรก</h4> <p>ประเทศไทยมีเภสัชกรที่ได้รับการรับรอง BCOP (Board Certified Oncology Pharmacist) คนแรก ซึ่งเป็นมาตรฐานสากล</p> </li>
+                <li class="timeline-item" data-year="2007"> <h4>ก่อตั้ง APOPS</h4> <p>ก่อตั้ง APOPS (Thailand) หรือ ชมรมเภสัชกรโรคมะเร็งแห่งประเทศไทย ซึ่งเป็นรากฐานโดยตรงของ APOPA ในปัจจุบัน</p> </li>
+                <li class="timeline-item" data-year="2009"> <h4>ยกระดับการศึกษา</h4> <p>มีการปรับเปลี่ยนหลักสูตรเภสัชศาสตร์เป็นหลักสูตร 6 ปี (Pharm D) เพื่อเตรียมความพร้อมเภสัชกรให้มีความเชี่ยวชาญเชิงลึกมากขึ้น</p> </li>
+                 <li class="timeline-item" data-year="2012"> <h4>ผู้เชี่ยวชาญคนแรก</h4> <p>มีเภสัชกรผู้เชี่ยวชาญด้านโรคมะเร็ง (Oncology Pharmacy Fellow in Practice) คนแรก</p> </li>
+                <li class="timeline-item" data-year="2020"> <h4>เปลี่ยนผ่านสู่สมาคม</h4> <p>ถือเป็นยุคใหม่ของการพัฒนา โดยมีการเปลี่ยนผ่านจากชมรม APOPS ไปสู่ สมาคม APOPA (Thailand) อย่างเป็นทางการ</p> </li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>🎯 ผลงานและภารกิจ 3 เสาหลักของ APOPA</h2>
+            <p>ภายใต้วิสัยทัศน์ที่มุ่งมั่น APOPA ได้ดำเนินภารกิจหลักในการพัฒนาคุณภาพและจำนวนสมาชิก โดยมีกลยุทธ์สำคัญคือการพัฒนาบุคลากรและสร้างระบบการฝึกอบรมที่เข้มแข็ง ผลงานที่ผ่านมาแบ่งออกเป็น 3 เสาหลักที่ชัดเจน:</p>
+            <div class="pillars-grid">
+                <div class="pillar-card"> <div class="icon">🛡️</div> <h4>1. การสร้างมาตรฐานวิชาชีพ</h4> <p>สร้างเครื่องมือและองค์ความรู้ที่เป็นมาตรฐาน เช่น <strong>คู่มือและตำรา</strong> และพัฒนา <strong>Chemotherapy software</strong> (Freeware)</p> </div>
+                <div class="pillar-card"> <div class="icon">🎓</div> <h4>2. การพัฒนาผู้เชี่ยวชาญ</h4> <p>พัฒนา "คน" ผ่านโครงการต่างๆ เช่น <strong>หลักสูตรอบรมระยะสั้น</strong>, ประชุมวิชาการ <strong>(COPS)</strong>, และติวสอบ <strong>BCOP Board Review</strong></p> </div>
+                <div class="pillar-card"> <div class="icon">🌐</div> <h4>3. การสร้างเครือข่าย</h4> <p>สร้างเครือข่ายความร่วมมือทั้ง<strong>ในประเทศ</strong> (CPOT, GTAPP) และ<strong>ระหว่างประเทศ</strong> (ISOPP, JTOP, APOPC)</p> </div>
+            </div>
+        </section>
+
+        <section>
+            <h2>🔭 ก้าวต่อไปท่ามกลางความท้าทาย</h2>
+            <p>แม้จะมีพัฒนาการที่น่าทึ่ง APOPA ยังคงตระหนักถึงความท้าทายสำคัญ โดยเฉพาะ "จำนวนเภสัชกรผู้เชี่ยวชาญที่มีจำกัด" สวนทางกับ "จำนวนผู้ป่วยมะเร็งที่เพิ่มขึ้น" เพื่อรับมือกับความท้าทายเหล่านี้ APOPA ได้วางแนวทางแก้ไขปัญหาเชิงนวัตกรรมไว้หลายด้าน:</p>
+            <ul>
+                <li><b>การนำเทคโนโลยีมาใช้:</b> Patient portal, Robotic compounding</li>
+                <li><b>การขยายบริการใหม่:</b> Home chemotherapy</li>
+                <li><b>การพัฒนากระบวนการ:</b> Innovative patient education, Oncology service plan</li>
+            </ul>
+            <p>จากจุดเริ่มต้นในการผสมยาเคมีบำบัด สู่การก่อตั้งชมรม APOPS และพัฒนาเป็นสมาคม APOPA ในปัจจุบัน คือบทพิสูจน์ของความมุ่งมั่นในการยกระดับวิชาชีพเภสัชกรรมโรคมะเร็งในไทย</p>
+        </section>
+
+        <footer>
+            <p style="text-align:center; color: #6c757d; margin-top: 50px;">พัฒนาโดยเภสัชกรวิรุณ เวชศิริ</p>
+        </footer>
+
+    </div>
+</body>
+</html>

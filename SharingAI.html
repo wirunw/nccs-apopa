@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Forging the Future of Oncology Pharmacy</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Sarabun', sans-serif;
+            background-color: #f8f9fa; /* Master background color */
+            color: #343a40;
+            margin: 0;
+            padding-top: 70px; /* Space for fixed navbar */
+            line-height: 1.7;
+        }
+        .main-container {
+            width: 100%;
+        }
+        .presentation-container {
+            position: relative;
+            width: 100%;
+            padding-top: 56.25%; /* 16:9 Aspect Ratio */
+            background-color: #e0f2f1; /* Lighter shade of master color */
+        }
+        .presentation-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+        .article-container {
+            max-width: 800px;
+            margin: 40px auto;
+            background: #fff;
+            padding: 30px 40px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.07);
+        }
+        .lang-toggle {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .lang-btn {
+            background-color: #e9ecef;
+            color: #495057;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 1em;
+            margin: 0 5px;
+            transition: all 0.3s ease;
+        }
+        .lang-btn.active {
+            background-color: #00796b; /* Master color */
+            color: #fff;
+            font-weight: 700;
+        }
+        h1 {
+            font-size: 2.2em;
+            font-weight: 700;
+            color: #004d40; /* Master header color */
+            margin-top: 0;
+        }
+        h2 {
+            font-size: 1.6em;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-top: 30px;
+            border-bottom: 2px solid #e0f2f1;
+            padding-bottom: 10px;
+            color: #004d40;
+        }
+        .highlight {
+            background-color: #e0f2f1;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: 700;
+            color: #004d40;
+        }
+        #lang-th { display: none; }
+        
+        /* Navbar Styles */
+        .navbar {
+            background-color: #fff;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+            height: 70px;
+        }
+        .navbar-brand {
+            font-weight: 700;
+            font-size: 1.4em;
+            color: #00796b;
+            text-decoration: none;
+        }
+        .navbar-links {
+            display: flex;
+            gap: 20px;
+        }
+        .navbar-links a {
+            text-decoration: none;
+            color: #343a40;
+            font-weight: 600;
+            padding: 10px;
+            border-radius: 6px;
+            transition: background-color 0.2s;
+        }
+        .navbar-links a:hover, .navbar-links a.active {
+            background-color: #e0f2f1;
+            color: #004d40;
+        }
+        .dropdown {
+            position: relative;
+        }
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            top: 100%;
+            right: 0;
+            background-color: #fff;
+            min-width: 200px;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+            border-radius: 8px;
+            padding: 10px 0;
+        }
+        .dropdown-content a {
+            display: block;
+            padding: 12px 16px;
+        }
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <header class="navbar">
+        <a href="index.html" class="navbar-brand">NCCS Site Visit</a>
+        <nav class="navbar-links">
+            <a href="index.html">Home</a>
+            <a href="Visit Detail.html">Visit Details</a>
+            <a href="NCCS Detail.html">NCCS Deep Dive</a>
+            <a href="SharingAI.html">AI Sharing Session</a>
+            <div class="dropdown">
+                <a href="#" class="active">More</a>
+                <div class="dropdown-content">
+                    <a href="Participants.html">Participants</a>
+                    <a href="Logistic Plan.html">Logistics</a>
+                    <a href="Flashcards.html">Flashcards Game</a>
+                    <a href="APOPA.html">About APOPA</a>
+                </div>
+            </div>
+        </nav>
+    </header>
+    
+    <div class="main-container">
+        <div class="presentation-container">
+            <iframe src="https://gamma.app/embed/ir7u0n4u0laimll" allow="fullscreen" title="Forging the Future of Oncology Pharmacy: Insights from Thailand's Digital Transformation"></iframe>
+        </div>
+        <div class="article-container">
+            <div class="lang-toggle">
+                <button id="btn-en" class="lang-btn active">English</button>
+                <button id="btn-th" class="lang-btn">ไทย</button>
+            </div>
+
+            <div id="lang-en">
+                <h1>Forging the Future: How Thailand is Deploying AI and Data to Transform Pharmaceutical Care</h1>
+                <p>Thailand is in the midst of a strategic digital transformation aimed at enhancing its pharmaceutical services, with a clear focus on improving patient outcomes and operational efficiency. This national strategy is built on three core pillars: the practical implementation of AI, the establishment of robust safeguarding systems, and a deep commitment to data-driven process optimization. This multi-pronged approach is moving the nation’s healthcare sector from theoretical concepts to tangible, real-world applications, especially in the complex field of oncology.</p>
+                
+                <h2>🤖 Pillar 1: From Simple Bots to Proactive AI Tools</h2>
+                <p>The first pillar focuses on moving AI from theory to practice. Thai hospitals are rapidly evolving beyond simple, reactive Q&A chatbots. The new focus is on developing sophisticated, proactive supporting tools designed to actively assist in both patient care and complex administrative tasks.</p>
+                <p>This evolution is evident in two key areas. First, in proactive patient communication, hospitals like Tha Tum are using AI chatbots to manage psychiatric patients requiring Long-Acting Injections (LAIs). The system proactively sends notifications, provides education, and tracks appointments, a simple intervention that has significantly solved the problem of missed appointments and increased medication adherence.</p>
+                <p>Second, Generative AI is being leveraged for complex, domain-specific back-office tasks. For example, the "Kooprey Plus" system at the Sisaket Provincial Health Office uses Generative AI (Claude AI) to assist pharmacists in drafting initial legal documents and official replies. This AI-powered drafting feature successfully reduces the heavy documentation burden on pharmacists, speeding up public service and freeing up clinical time.</p>
+
+                <h2>🛡️ Pillar 2: The "Human-in-the-Loop" Safeguard</h2>
+                <p>This rapid adoption of AI is tempered by a realistic understanding of its challenges. The foremost concerns include ensuring medical accuracy, mitigating AI "hallucinations," navigating Thailand's strict Personal Data Protection Act (PDPA) with sensitive patient data, and clarifying the ambiguous legal liability of AI-driven medical advice.</p>
+                <p>This is precisely why the second pillar—Robust Safeguards—is so critical. The national strategy emphasizes that an AI model is never trusted alone. Instead, it is embedded within a system of checks, with a "Human-in-the-Loop"—a qualified pharmacist or doctor—acting as the final validator for all clinical decisions.</p>
+                <p>This principle is applied at both the data and workflow levels. At the data level, the Adverse Drug Reaction (ADR) Data Linkage project in Ubon Ratchathani connects 26 hospitals. It uses Natural Language Processing (NLP) and Fuzzy Matching to "clean" and "validate" ADR data, which is often recorded in non-standard formats. This process creates a single, reliable dataset that makes the entire Clinical Decision Support system trustworthy.</p>
+                <p>At the workflow level, the "SMART ADR" system at Nakhon Pathom Hospital closes critical communication gaps, especially after hours. When a new ADR is recorded, the system sends an immediate alert to the pharmacist's Line OA. The pharmacist verifies the information and then manually activates a "Pop-up Lock" in the main Hospital Information System (HIS), a seamless integration of system alerts and expert confirmation that prevents repeat prescriptions in real-time.</p>
+
+                <h2>📊 Pillar 3: Using Data to Drive Measurable Improvements</h2>
+                <p>The third pillar leverages health informatics and data analytics to drive tangible improvements in efficiency, safety, and waste reduction.</p>
+                <p>Prakhon Chai Hospital, for example, implemented a paperless system combined with LEAN principles for its inpatient wards. This replaced a high-risk, paper-based "Copy Order" system with a fully electronic one. The data-driven results were dramatic: average patient discharge medication waiting time was cut by more than half (from <span class="highlight">12.23 to 5.39 minutes</span>), and on-time delivery of "Stat" (urgent) medications jumped from <span class="highlight">58.33% to 92.43%</span>.</p>
+                <p>Perhaps the most impactful example comes from the oncology field. Srinagarind Hospital developed "CanRx," a specialized web-based application for ordering anticancer drugs. This system replaced inefficient MS Word templates and complex paper prescriptions with centralized, digital anticancer regimen protocols.</p>
+                <p>The pilot results from 2023 were transformative. Transcribing errors were reduced to <span class="highlight">zero</span>. Prescribing errors fell by <span class="highlight">54%</span> (from 5.24 to 2.41 per 1000 prescriptions), and patient waiting time from prescription to pre-medication administration was cut by <span class="highlight">25%</span> (from 1h 55m to 1h 26m). Furthermore, the time for pharmacists to develop a protocol dropped from 5-10 minutes per case to less than one minute.</p>
+                <p>Thailand's journey into digital pharmacy is not a single initiative but a comprehensive, strategic push on all fronts. By blending practical AI applications with non-negotiable human-led safeguards and a relentless focus on data-driven optimization, the nation is building a safer, more efficient, and more patient-centric future for pharmaceutical care.</p>
+            </div>
+
+            <div id="lang-th">
+                <h1>ประเทศไทยมีการประยุกต์ใช้ AI และข้อมูลเพื่อปฏิรูปการบริบาลทางเภสัชกรรมอย่างไร</h1>
+                <p>ประเทศไทยเองก็กำลังอยู่ท่ามกลางการปฏิรูปทางดิจิทัลเชิงกลยุทธ์ โดยมุ่งเป้าไปที่การยกระดับบริการทางเภสัชกรรม พร้อมจุดเน้นที่ชัดเจนในการปรับปรุงผลลัพธ์ของผู้ป่วยและประสิทธิภาพการดำเนินงาน ยุทธศาสตร์ชาตินี้ตั้งอยู่บนสามเสาหลัก ได้แก่: การนำ AI มาประยุกต์ใช้ในภาคปฏิบัติ, การจัดตั้งระบบป้องกันที่แข็งแกร่ง และความมุ่งมั่นอย่างลึกซึ้งต่อการเพิ่มประสิทธิภาพกระบวนการด้วยข้อมูล (Data-Driven Process Optimization) แนวทางแบบหลายมิตินี้กำลังขับเคลื่อนภาคส่วนการดูแลสุขภาพของประเทศจากแนวคิดเชิงทฤษฎีไปสู่การใช้งานจริงที่จับต้องได้ โดยเฉพาะอย่างยิ่งในขอบเขตที่ซับซ้อนอย่างเภสัชกรรมมะเร็ง</p>
+                
+                <h2>🤖 เสาหลักที่ 1: จากบอทธรรมดา สู่เครื่องมือ AI เชิงรุก</h2>
+                <p>เสาหลักแรกมุ่งเน้นไปที่การย้าย AI จากทฤษฎีไปสู่การปฏิบัติ โรงพยาบาลในไทยกำลังพัฒนาอย่างรวดเร็ว ก้าวข้ามการใช้แชทบอทตอบคำถาม (Q&A) แบบพื้นฐานที่รอให้ผู้ใช้ป้อนคำสั่ง (Reactive) จุดมุ่งเน้นใหม่คือการพัฒนาเครื่องมือสนับสนุนเชิงรุก (Proactive) ที่มีความซับซ้อน ซึ่งออกแบบมาเพื่อช่วยเหลืออย่างจริงจังทั้งในการดูแลผู้ป่วยและงานธุรการที่ซับซ้อน</p>
+                <p>วิวัฒนาการนี้เห็นได้ชัดในสองประเด็นหลัก ประการแรก ในการสื่อสารเชิงรุกกับผู้ป่วย โรงพยาบาลอย่างโรงพยาบาลท่าตูมกำลังใช้ AI แชทบอทเพื่อจัดการผู้ป่วยจิตเวชที่ต้องได้รับยาฉีดแบบออกฤทธิ์นาน (LAIs) ระบบจะส่งการแจ้งเตือน ให้ความรู้ และติดตามการนัดหมายในเชิงรุก ซึ่งเป็นการแทรกแซงที่เรียบง่ายแต่ช่วยแก้ปัญหาการขาดนัดและเพิ่มความร่วมมือในการใช้ยา (Medication Adherence) ได้อย่างมีนัยสำคัญ</p>
+                <p>ประการที่สอง Generative AI ถูกนำมาใช้เพื่องานสนับสนุนหลังบ้าน (Back-office) ที่ซับซ้อนและมีความเฉพาะทางสูง (Domain-specific) ตัวอย่างเช่น ระบบ "Kooprey Plus" ที่สำนักงานสาธารณสุขจังหวัดศรีสะเกษ ใช้ Generative AI (Claude AI) เพื่อช่วยเภสัชกรในการร่างเอกสารทางกฎหมายเบื้องต้นและจดหมายตอบโต้ทางราชการ คุณลักษณะการร่างเอกสารด้วย AI นี้ช่วยลดภาระงานเอกสารที่หนักหน่วงของเภสัชกรได้สำเร็จ ทำให้การบริการประชาชนรวดเร็วขึ้น และเพิ่มเวลาให้เภสัชกรไปทำงานทางคลินิกได้มากขึ้น</p>
+
+                <h2>🛡️ เสาหลักที่ 2: เกราะป้องกัน "Human-in-the-Loop"</h2>
+                <p>การนำ AI มาใช้อย่างรวดเร็วนี้ ถูกถ่วงดุลด้วยความเข้าใจในความท้าทายตามความเป็นจริง ความกังวลที่สำคัญที่สุด ได้แก่ การรับประกันความถูกต้องทางการแพทย์, การลดปัญหา AI "Hallucinations" (การให้ข้อมูลผิดพลาด), การปฏิบัติตาม พ.ร.บ. คุ้มครองข้อมูลส่วนบุคคล (PDPA) ของไทยเมื่อต้องจัดการกับข้อมูลผู้ป่วยที่ละเอียดอ่อน และการสร้างความชัดเจนเกี่ยวกับความรับผิดชอบทางกฎหมายที่ยังคลุมเครือของคำแนะนำทางการแพทย์ที่ขับเคลื่อนด้วย AI</p>
+                <p>นี่คือเหตุผลที่ชัดเจนว่าทำไมเสาหลักที่สอง—ระบบป้องกันที่แข็งแกร่ง (Robust Safeguards)—จึงมีความสำคัญอย่างยิ่ง ยุทธศาสตร์ชาติเน้นย้ำว่า โมเดล AI จะไม่ได้รับความไว้วางใจให้ทำงานโดยลำพัง แต่จะถูกฝังไว้ในระบบการตรวจสอบ โดยมี "Human-in-the-Loop" หรือ "มนุษย์ผู้ตรวจสอบ" ซึ่งก็คือเภสัชกรหรือแพทย์ผู้ทรงคุณวุฒิ ทำหน้าที่เป็นผู้ตรวจสอบขั้นสุดท้าย (Final Validator) สำหรับการตัดสินใจทางคลินิกทั้งหมด</p>
+                <p>หลักการนี้ถูกนำไปใช้ทั้งในระดับข้อมูลและระดับกระบวนการทำงาน (Workflow) ในระดับข้อมูล โครงการเชื่อมโยงข้อมูลการแพ้ยาซ้ำ (ADR Data Linkage) ในจังหวัดอุบลราชธานี เชื่อมต่อโรงพยาบาล 26 แห่งเข้าด้วยกัน โดยใช้ Natural Language Processing (NLP) และ Fuzzy Matching เพื่อ "ทำความสะอาด" (Clean) และ "ตรวจสอบความถูกต้อง" (Validate) ของข้อมูล ADR ซึ่งมักถูกบันทึกในรูปแบบที่ไม่เป็นมาตรฐาน กระบวนการนี้สร้างชุดข้อมูลที่เชื่อถือได้เพียงหนึ่งเดียว ซึ่งทำให้ระบบสนับสนุนการตัดสินใจทางคลินิก (Clinical Decision Support System) ทั้งหมดมีความน่าเชื่อถือ</p>
+                <p>ในระดับกระบวนการทำงาน ระบบ "SMART ADR" ที่โรงพยาบาลนครปฐม ช่วยปิดช่องว่างการสื่อสารที่สำคัญ โดยเฉพาะนอกเวลาราชการ เมื่อมีการบันทึก ADR ใหม่ ระบบจะส่งการแจ้งเตือนทันทีไปยัง Line OA ของเภสัชกร เภสัชกรจะตรวจสอบข้อมูล จากนั้นจึงเข้าไป "ล็อค" (Pop-up Lock) ในระบบสารสนเทศของโรงพยาบาล (HIS) ด้วยตนเอง นี่คือการผสานรวมที่ไร้รอยต่อระหว่างการแจ้งเตือนของระบบและการยืนยันโดยผู้เชี่ยวชาญ ซึ่งช่วยป้องกันการสั่งยาซ้ำได้แบบเรียลไทม์</p>
+
+                <h2>📊 เสาหลักที่ 3: การใช้ข้อมูลเพื่อขับเคลื่อนการปรับปรุงที่วัดผลได้</h2>
+                <p>เสาหลักที่สามใช้ประโยชน์จากสารสนเทศทางสุขภาพ (Health Informatics) และการวิเคราะห์ข้อมูล (Data Analytics) เพื่อขับเคลื่อนการปรับปรุงที่จับต้องได้ในด้านประสิทธิภาพ ความปลอดภัย และการลดความสูญเปล่า</p>
+                <p>ตัวอย่างเช่น โรงพยาบาลประโคนชัย ได้นำระบบไร้กระดาษ (Paperless System) มาใช้ร่วมกับหลักการ LEAN สำหรับหอผู้ป่วยใน ระบบนี้มาแทนที่ระบบ "Copy Order" ที่ใช้กระดาษซึ่งมีความเสี่ยงสูง ด้วยระบบการสั่งยาแบบอิเล็กทรอนิกส์เต็มรูปแบบ ผลลัพธ์ที่ขับเคลื่อนด้วยข้อมูลนั้นน่าทึ่งมาก: เวลาเฉลี่ยในการรอรับยาของผู้ป่วยจำหน่าย (Discharge) ลดลงมากกว่าครึ่ง (จาก <span class="highlight">12.23 นาที เหลือ 5.39 นาที</span>), และการจัดส่งยา "Stat" (ยาเร่งด่วน) ได้ตรงเวลาเพิ่มขึ้นจาก <span class="highlight">58.33% เป็น 92.43%</span></p>
+                <p>ตัวอย่างที่ส่งผลกระทบมากที่สุดอาจมาจากสายงานเภสัชกรรมมะเร็ง โรงพยาบาลศรีนครินทร์ได้พัฒนา "CanRx" ซึ่งเป็นเว็บแอปพลิเคชันเฉพาะทางสำหรับการสั่งยาต้านมะเร็ง ระบบนี้มาแทนที่การใช้เทมเพลต MS Word และใบสั่งยาแบบกระดาษสามส่วนที่ไม่มีประสิทธิภาพ ด้วยโปรโตคอลการรักษา (Regimen Protocols) แบบดิจิทัลที่เป็นศูนย์กลาง</p>
+                <p>ผลลัพธ์จากโครงการนำร่องในปี 2023 ถือเป็นการเปลี่ยนแปลงครั้งใหญ่ ความผิดพลาดในการคัดลอกคำสั่งยา (Transcribing errors) ลดลงเหลือ <span class="highlight">ศูนย์</span> ความผิดพลาดในการสั่งยา (Prescribing errors) ลดลง <span class="highlight">54%</span> (จาก 5.24 เหลือ 2.41 ต่อ 1,000 ใบสั่งยา) และเวลารอคอยของผู้ป่วยตั้งแต่การสั่งยาจนถึงการบริหารยา Pre-medication ลดลง <span class="highlight">25%</span> (จาก 1 ชั่วโมง 55 นาที เหลือ 1 ชั่วโมง 26 นาที) ยิ่งไปกว่านั้น เวลาที่เภสัชกรใช้ในการเตรียมโปรโตคอลลดลงจาก 5-10 นาทีต่อเคส เหลือเพียงไม่ถึง 1 นาที</p>
+                <p>การเดินทางของประเทศไทยสู่เภสัชกรรมดิจิทัลไม่ใช่แค่โครงการริเริ่มเดียว แต่เป็นการผลักดันเชิงกลยุทธ์ที่ครอบคลุมในทุกด้าน ด้วยการผสมผสานการใช้งาน AI ในภาคปฏิบัติเข้ากับเกราะป้องกันที่นำโดยมนุษย์ซึ่งเป็นสิ่งที่ไม่สามารถต่อรองได้ และการมุ่งเน้นอย่างไม่ลดละในการเพิ่มประสิทธิภาพด้วยข้อมูล ประเทศไทยกำลังสร้างอนาคตของการบริบาลทางเภสัชกรรมที่ปลอดภัยกว่า มีประสิทธิภาพมากกว่า และมีผู้ป่วยเป็นศูนย์กลางมากขึ้น</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const btnEn = document.getElementById('btn-en');
+        const btnTh = document.getElementById('btn-th');
+        const contentEn = document.getElementById('lang-en');
+        const contentTh = document.getElementById('lang-th');
+
+        btnEn.addEventListener('click', () => {
+            contentEn.style.display = 'block';
+            contentTh.style.display = 'none';
+            btnEn.classList.add('active');
+            btnTh.classList.remove('active');
+        });
+
+        btnTh.addEventListener('click', () => {
+            contentEn.style.display = 'none';
+            contentTh.style.display = 'block';
+            btnTh.classList.add('active');
+            btnEn.classList.remove('active');
+        });
+    </script>
+</body>
+</html>

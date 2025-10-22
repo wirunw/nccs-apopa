@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NCCS Site Visit 2025 - Home</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Sarabun', sans-serif;
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            color: #343a40;
+            margin: 0;
+            padding-top: 70px; /* Space for fixed navbar */
+            line-height: 1.7;
+        }
+        /* Navbar Styles */
+        .navbar {
+            background-color: #fff;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+            height: 70px;
+        }
+        .navbar-brand {
+            font-weight: 700;
+            font-size: 1.4em;
+            color: #00796b;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .navbar-brand i {
+            font-size: 1.2em;
+        }
+        .navbar-links {
+            display: flex;
+            gap: 20px;
+        }
+        .navbar-links a {
+            text-decoration: none;
+            color: #343a40;
+            font-weight: 600;
+            padding: 10px;
+            border-radius: 6px;
+            transition: background-color 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        .navbar-links a:hover, .navbar-links a.active {
+            background-color: #e0f2f1;
+            color: #004d40;
+        }
+        .dropdown {
+            position: relative;
+        }
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            top: 100%;
+            right: 0;
+            background-color: #fff;
+            min-width: 200px;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+            border-radius: 8px;
+            padding: 10px 0;
+        }
+        .dropdown-content a {
+            display: block;
+            padding: 12px 16px;
+        }
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+        /* Main Content Styles */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+        .hero {
+            text-align: center;
+            padding: 70px 20px;
+            background: linear-gradient(135deg, #00796b 0%, #004d40 100%);
+            color: white;
+            border-radius: 20px;
+            margin-bottom: 50px;
+            position: relative;
+            overflow: hidden;
+        }
+        .hero::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none"><polygon points="0,0 100,100 0,100" fill="rgba(255,255,255,0.05)"/></svg>');
+            background-size: cover;
+            opacity: 0.3;
+        }
+        .hero-content {
+            position: relative;
+            z-index: 2;
+        }
+        .hero h1 { 
+            font-size: 3.5em; 
+            margin: 0 0 20px 0;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        .hero p { 
+            font-size: 1.4em; 
+            max-width: 800px;
+            margin: 0 auto;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+        }
+        .section-title { 
+            text-align: center; 
+            font-size: 2.5em; 
+            color: #004d40;
+            margin: 60px 0 40px 0;
+            position: relative;
+        }
+        .section-title::after {
+            content: "";
+            display: block;
+            width: 100px;
+            height: 4px;
+            background: #00796b;
+            margin: 15px auto;
+            border-radius: 2px;
+        }
+        .intro-text {
+            text-align: center;
+            font-size: 1.2em;
+            max-width: 800px;
+            margin: 0 auto 50px;
+            color: #495057;
+        }
+        .nav-grid { 
+            display: grid; 
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); 
+            gap: 30px; 
+            margin-bottom: 60px;
+        }
+        .nav-card { 
+            background: #fff; 
+            border-radius: 16px; 
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08); 
+            padding: 35px 25px;
+            text-decoration: none; 
+            color: inherit; 
+            display: flex; 
+            flex-direction: column; 
+            transition: transform 0.3s ease, box-shadow 0.3s ease; 
+            position: relative;
+            overflow: hidden;
+            border: 1px solid #e9ecef;
+        }
+        .nav-card::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: #00796b;
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+        }
+        .nav-card:hover { 
+            transform: translateY(-12px); 
+            box-shadow: 0 15px 40px rgba(0,0,0,0.15); 
+        }
+        .nav-card:hover::before {
+            transform: scaleX(1);
+        }
+        .nav-card .icon { 
+            font-size: 3.5em; 
+            margin-bottom: 20px; 
+            text-align: center;
+        }
+        .nav-card h3 { 
+            font-size: 1.6em; 
+            color: #004d40; 
+            margin: 0 0 15px 0; 
+            text-align: center;
+        }
+        .nav-card p { 
+            flex-grow: 1; 
+            text-align: center;
+            color: #6c757d;
+        }
+        .nav-card .arrow { 
+            font-size: 1.5em; 
+            color: #00796b; 
+            margin-top: 20px; 
+            align-self: center; 
+            transition: transform 0.3s ease;
+        }
+        .nav-card:hover .arrow {
+            transform: translateX(5px);
+        }
+        .highlights {
+            background: #ffffff;
+            border-radius: 16px;
+            padding: 40px;
+            margin: 50px 0;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+        }
+        .highlights h2 {
+            text-align: center;
+            color: #004d40;
+            margin-bottom: 30px;
+        }
+        .highlights-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+        }
+        .highlight-item {
+            text-align: center;
+            padding: 20px;
+        }
+        .highlight-item i {
+            font-size: 2.5em;
+            color: #00796b;
+            margin-bottom: 15px;
+            display: block;
+        }
+        .highlight-item h3 {
+            color: #004d40;
+            margin: 10px 0;
+        }
+        .highlight-item p {
+            color: #6c757d;
+            margin: 0;
+        }
+        footer { 
+            text-align: center; 
+            padding: 40px 20px; 
+            margin-top: 60px; 
+            background: linear-gradient(135deg, #004d40 0%, #002620 100%);
+            color: #ecf0f1;
+        }
+        footer p { 
+            margin: 8px 0; 
+        }
+        footer p:first-child {
+            font-weight: 600;
+            font-size: 1.1em;
+        }
+        .developer-credit {
+            font-style: italic;
+            margin-top: 15px;
+            color: #bdc3c7;
+        }
+    </style>
+</head>
+<body>
+
+    <header class="navbar">
+        <a href="index.html" class="navbar-brand">
+            <i class="fas fa-clinic-medical"></i>
+            NCCS Site Visit
+        </a>
+        <nav class="navbar-links">
+            <a href="index.html" class="active"><i class="fas fa-home"></i> Home</a>
+            <a href="Visit Detail.html"><i class="fas fa-info-circle"></i> Visit Details</a>
+            <a href="NCCS Detail.html"><i class="fas fa-book-open"></i> NCCS Deep Dive</a>
+            <a href="SharingAI.html"><i class="fas fa-robot"></i> AI Sharing Session</a>
+            <div class="dropdown">
+                <a href="#"><i class="fas fa-ellipsis-h"></i> More</a>
+                <div class="dropdown-content">
+                    <a href="Participants.html"><i class="fas fa-users"></i> Participants</a>
+                    <a href="Logistic Plan.html"><i class="fas fa-calendar-alt"></i> Logistics</a>
+                    <a href="Flashcards.html"><i class="fas fa-graduation-cap"></i> Flashcards Game</a>
+                    <a href="APOPA.html"><i class="fas fa-building"></i> About APOPA</a>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <div class="container">
+        <div class="hero">
+            <div class="hero-content">
+                <h1>ถอดรหัสอนาคตเภสัชกรรมมะเร็ง</h1>
+                <p>การเดินทางศึกษาดูงาน ณ National Cancer Centre Singapore (NCCS) เพื่อนำนวัตกรรมมายกระดับการดูแลผู้ป่วยมะเร็งในประเทศไทย</p>
+            </div>
+        </div>
+
+        <p class="intro-text">
+            ยินดีต้อนรับสู่เว็บไซต์สรุปผลการศึกษาดูงานของคณะผู้นำเภสัชกรรมจาก APOPA ประเทศไทย ณ National Cancer Centre Singapore (NCCS) 
+            เว็บไซต์นี้รวบรวมข้อมูลเชิงลึกเกี่ยวกับนวัตกรรมด้านเภสัชกรรมมะเร็งที่ทันสมัยที่สุดในโลก ซึ่งจะเป็นแนวทางในการพัฒนาระบบการดูแลผู้ป่วยมะเร็งในประเทศไทย
+        </p>
+
+        <div class="highlights">
+            <h2><i class="fas fa-star"></i> จุดเด่นของการศึกษาดูงาน</h2>
+            <div class="highlights-grid">
+                <div class="highlight-item">
+                    <i class="fas fa-brain"></i>
+                    <h3>ปัญญาประดิษฐ์ในเภสัชกรรม</h3>
+                    <p>การประยุกต์ใช้ AI และระบบสารสนเทศในกระบวนการดูแลผู้ป่วย</p>
+                </div>
+                <div class="highlight-item">
+                    <i class="fas fa-robot"></i>
+                    <h3>ระบบอัตโนมัติ</h3>
+                    <p>การใช้หุ่นยนต์ในการเตรียมยาอย่างปลอดภัยและแม่นยำ</p>
+                </div>
+                <div class="highlight-item">
+                    <i class="fas fa-home"></i>
+                    <h3>การดูแลที่บ้าน</h3>
+                    <p>บริการให้เคมีบำบัดที่บ้านอย่างปลอดภัยและมีประสิทธิภาพ</p>
+                </div>
+                <div class="highlight-item">
+                    <i class="fas fa-users"></i>
+                    <h3>ภาวะผู้นำ</h3>
+                    <p>การบริหารจัดการการเปลี่ยนแปลงองค์กรอย่างมีประสิทธิผล</p>
+                </div>
+            </div>
+        </div>
+
+        <h2 class="section-title">สำรวจข้อมูลการดูงาน</h2>
+        <div class="nav-grid">
+            <a href="Visit Detail.html" class="nav-card">
+                <div class="icon">🔍</div>
+                <h3>ภาพรวมและเป้าหมาย</h3>
+                <p>เจาะลึก 4 กุญแจสำคัญของการดูงาน: Informatics, Automation, Home Care, และ Leadership</p>
+                <div class="arrow"><i class="fas fa-arrow-right"></i></div>
+            </a>
+            <a href="Participants.html" class="nav-card">
+                <div class="icon">👥</div>
+                <h3>คณะผู้เข้าร่วม</h3>
+                <p>รายชื่อและบทบาทของคณะผู้บริหารเภสัชกรรมจาก APOPA ประเทศไทย</p>
+                <div class="arrow"><i class="fas fa-arrow-right"></i></div>
+            </a>
+            <a href="Logistic Plan.html" class="nav-card">
+                <div class="icon">📅</div>
+                <h3>แผนการเดินทาง</h3>
+                <p>กำหนดการเดินทาง, ตารางนัดหมาย, และข้อมูลโลจิสติกส์ที่สำคัญ</p>
+                <div class="arrow"><i class="fas fa-arrow-right"></i></div>
+            </a>
+            <a href="APOPA.html" class="nav-card">
+                <div class="icon">🏛️</div>
+                <h3>เกี่ยวกับ APOPA</h3>
+                <p>ประวัติ, ภารกิจ, และเส้นทางการพัฒนาวิชาชีพเภสัชกรรมโรคมะเร็งในไทย</p>
+                <div class="arrow"><i class="fas fa-arrow-right"></i></div>
+            </a>
+            <a href="SharingAI.html" class="nav-card">
+                <div class="icon">🤖</div>
+                <h3>AI in Pharmacy</h3>
+                <p>สไลด์และบทความสรุปการประยุกต์ใช้ AI และข้อมูลเพื่อปฏิรูปการบริบาลทางเภสัชกรรมในไทย</p>
+                <div class="arrow"><i class="fas fa-arrow-right"></i></div>
+            </a>
+            <a href="NCCS Detail.html" class="nav-card">
+                <div class="icon">📄</div>
+                <h3>ข้อมูลวิเคราะห์เชิงลึก (NCCS)</h3>
+                <p>เอกสารสรุปข้อมูลเชิงลึกเกี่ยวกับวิทยากร, นวัตกรรม, และระบบต่างๆ ของ NCCS</p>
+                <div class="arrow"><i class="fas fa-arrow-right"></i></div>
+            </a>
+        </div>
+    </div>
+
+    <footer>
+        <p><i class="fas fa-copyright"></i> 2025 APOPA Thailand. All Rights Reserved.</p>
+        <p class="developer-credit">พัฒนาโดย เภสัชกรวิรุณ เวชศิริ</p>
+    </footer>
+
+</body>
+</html>
