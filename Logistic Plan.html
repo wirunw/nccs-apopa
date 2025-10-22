@@ -74,6 +74,61 @@
         .dropdown:hover .dropdown-content {
             display: block;
         }
+        /* Mobile Responsive */
+        .menu-toggle {
+            display: none;
+            flex-direction: column;
+            justify-content: space-between;
+            width: 30px;
+            height: 21px;
+            cursor: pointer;
+            padding: 5px;
+        }
+        .menu-toggle span {
+            height: 3px;
+            width: 100%;
+            background-color: #343a40;
+            transition: 0.3s;
+            border-radius: 3px;
+        }
+        @media (max-width: 992px) {
+            .navbar-links {
+                position: fixed;
+                left: -100%;
+                top: 70px;
+                flex-direction: column;
+                background-color: white;
+                width: 100%;
+                text-align: center;
+                transition: 0.3s;
+                box-shadow: 0 10px 27px rgba(0,0,0,0.05);
+                padding: 20px 0;
+            }
+            .navbar-links.active {
+                left: 0;
+            }
+            .navbar-links a {
+                padding: 15px;
+                display: block;
+                border-bottom: 1px solid #e9ecef;
+            }
+            .dropdown {
+                width: 100%;
+            }
+            .dropdown-content {
+                position: static;
+                box-shadow: none;
+                border-radius: 0;
+                display: none;
+                background-color: #f8f9fa;
+            }
+            .dropdown.active .dropdown-content {
+                display: block;
+            }
+            .menu-toggle {
+                display: flex;
+            }
+        }
         /* Main Content Styles */
         .container {
             max-width: 960px;
@@ -117,6 +172,11 @@
                 </div>
             </div>
         </nav>
+        <div class="menu-toggle">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
     </header>
 
     <div class="container">
@@ -174,5 +234,39 @@
             </section>
         </main>
     </div>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const menuToggle = document.querySelector('.menu-toggle');
+            const navbarLinks = document.querySelector('.navbar-links');
+            
+            menuToggle.addEventListener('click', function() {
+                navbarLinks.classList.toggle('active');
+            });
+            
+            // Close mobile menu when clicking on a link
+            const navLinks = document.querySelectorAll('.navbar-links a');
+            navLinks.forEach(link => {
+                link.addEventListener('click', () => {
+                    if (window.innerWidth <= 992) {
+                        navbarLinks.classList.remove('active');
+                    }
+                });
+            });
+            
+            // Handle dropdown in mobile view
+            const dropdown = document.querySelector('.dropdown');
+            const dropdownLink = dropdown.querySelector('a');
+            
+            if (window.innerWidth <= 992) {
+                dropdownLink.addEventListener('click', function(e) {
+                    if (navbarLinks.classList.contains('active')) {
+                        e.preventDefault();
+                        dropdown.classList.toggle('active');
+                    }
+                });
+            }
+        });
+    </script>
 </body>
 </html>
