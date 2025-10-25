@@ -9,6 +9,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght @400;600;700&family=Sarabun:wght @400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/style.css">
 
     <style>
         /* --- 1. Global Styles --- */
@@ -37,10 +38,14 @@
             font-family: var(--font-primary);
             background-color: var(--bg-light);
             color: var(--text-dark);
+            padding-top: 70px; /* Add space for the fixed navbar */
+        }
+
+        .game-wrapper {
             display: flex;
             justify-content: center;
             align-items: flex-start;
-            min-height: 100vh;
+            min-height: calc(100vh - 70px);
             padding: 20px;
         }
 
@@ -56,14 +61,14 @@
         }
 
         /* --- 3. Header --- */
-        header {
+        .game-header {
             background-color: var(--primary-dark);
             color: var(--text-light);
             padding: 20px 25px;
             text-align: center;
         }
 
-        header h1 {
+        .game-header h1 {
             margin: 0 0 15px 0;
             font-size: 1.5rem;
         }
@@ -323,11 +328,12 @@
         </div>
     </header>
 
+    <div class="game-wrapper">
     <!-- ======== 1. APP CONTAINER ======== -->
     <div id="app">
 
         <!-- ======== 2. PERSISTENT HEADER ======== -->
-        <header>
+        <div class="game-header">
             <h1>Smart Pharmacy Blueprint</h1>
             <div class="progress-container">
                 <div id="blueprint-progress-bar"></div>
@@ -336,7 +342,7 @@
                 <span>คะแนน: <b id="score-display">0</b> IP</span>
                 <span>Badge: <b id="badge-count">0</b>/6</span>
             </div>
-        </header>
+        </div>
 
         <!-- ======== 3. VIEW CONTAINER ======== -->
         <main id="view-container">
@@ -483,6 +489,7 @@
         </div>
 
     </div> <!-- End #app -->
+    </div> <!-- end .game-wrapper -->
 
 
     <!-- ======== 5. JAVASCRIPT (The Brain) ======== -->
