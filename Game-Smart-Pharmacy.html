@@ -1,0 +1,700 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ภารกิจ: Smart Pharmacy Blueprint</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght @400;600;700&family=Sarabun:wght @400;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        /* --- 1. Global Styles --- */
+        :root {
+            --font-primary: 'Inter', 'Sarabun', sans-serif;
+            --primary-dark: #005f73;
+            --primary: #0a9396;
+            --primary-light: #94d2bd;
+            --accent: #e9d8a6;
+            --correct: #2a9d8f;
+            --incorrect: #e76f51;
+            --bg-light: #f8f9fa;
+            --bg-white: #ffffff;
+            --text-dark: #212529;
+            --text-light: #f8f9fa;
+            --shadow: 0 10px 30px rgba(0, 0, 0, 0.07);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: var(--font-primary);
+            background-color: var(--bg-light);
+            color: var(--text-dark);
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        /* --- 2. App Container --- */
+        #app {
+            width: 100%;
+            max-width: 600px;
+            background-color: var(--bg-white);
+            border-radius: 12px;
+            box-shadow: var(--shadow);
+            overflow: hidden;
+            border: 1px solid #dee2e6;
+        }
+
+        /* --- 3. Header --- */
+        header {
+            background-color: var(--primary-dark);
+            color: var(--text-light);
+            padding: 20px 25px;
+            text-align: center;
+        }
+
+        header h1 {
+            margin: 0 0 15px 0;
+            font-size: 1.5rem;
+        }
+
+        .stats {
+            display: flex;
+            justify-content: space-around;
+            font-size: 0.9em;
+            background-color: rgba(255, 255, 255, 0.1);
+            padding: 8px;
+            border-radius: 6px;
+        }
+
+        .progress-container {
+            background-color: var(--primary);
+            border-radius: 8px;
+            margin-bottom: 10px;
+            height: 12px;
+        }
+
+        #blueprint-progress-bar {
+            width: 0%; /* JS will update this */
+            height: 100%;
+            background-color: var(--accent);
+            border-radius: 8px;
+            transition: width 0.5s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+
+        /* --- 4. Main View Container (SPA Core) --- */
+        main {
+            padding: 25px;
+        }
+
+        .view {
+            display: none; /* Hide all views by default */
+            animation: fadeIn 0.4s ease-out;
+        }
+
+        .view.active {
+            display: block; /* Show only the active view */
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .view h2 {
+            font-size: 1.75rem;
+            color: var(--primary-dark);
+            margin-bottom: 10px;
+        }
+
+        .view p {
+            font-size: 1rem;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        /* --- 5. Buttons --- */
+        button {
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 600;
+            margin-top: 10px;
+            transition: all 0.2s ease;
+            width: 100%;
+            font-family: var(--font-primary);
+        }
+
+        button:hover {
+            background-color: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        button:disabled {
+            background-color: #ced4da;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        /* --- 6. Challenge & Quiz Styles --- */
+        .challenge-quiz {
+            margin-top: 20px;
+        }
+
+        .challenge-quiz p {
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+
+        button.answer {
+            display: block;
+            width: 100%;
+            background-color: #f1f3f5;
+            color: var(--text-dark);
+            text-align: left;
+            margin-top: 8px;
+            border: 2px solid #e9ecef;
+            font-weight: 400;
+        }
+
+        button.answer:hover:not(:disabled) {
+            background-color: #e9ecef;
+            border-color: var(--primary);
+            transform: none;
+            box-shadow: none;
+        }
+
+        button.answer.correct {
+            background-color: #d1fae5;
+            border-color: var(--correct);
+            color: #064e3b;
+            font-weight: 600;
+        }
+
+        button.answer.incorrect {
+            background-color: #fee2e2;
+            border-color: var(--incorrect);
+            color: #991b1b;
+            font-weight: 600;
+        }
+
+        .feedback {
+            font-size: 0.9rem;
+            margin-top: 10px;
+            padding: 10px;
+            border-radius: 6px;
+            display: none; /* Hidden by default */
+        }
+        .feedback.correct {
+            display: block;
+            background-color: #d1fae5;
+            color: #064e3b;
+        }
+        .feedback.incorrect {
+            display: block;
+            background-color: #fee2e2;
+            color: #991b1b;
+        }
+
+        textarea {
+            width: 100%;
+            min-height: 80px;
+            border: 2px solid #e9ecef;
+            border-radius: 8px;
+            padding: 10px;
+            font-family: var(--font-primary);
+            font-size: 1rem;
+            margin-top: 10px;
+        }
+
+        /* --- 7. Modal --- */
+        .modal {
+            display: none; /* Hidden by default */
+            position: fixed;
+            z-index: 100;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.6);
+            justify-content: center;
+            align-items: center;
+            animation: fadeIn 0.3s;
+        }
+
+        .modal.active {
+            display: flex; /* Show when active */
+        }
+
+        .modal-content {
+            background-color: var(--bg-white);
+            padding: 30px;
+            border-radius: 12px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            width: 90%;
+            max-width: 400px;
+            animation: slideIn 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+        
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(30px) scale(0.95);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        #modal-badge-icon {
+            font-size: 4rem;
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        .modal-content h2 {
+            color: var(--primary-dark);
+            margin-bottom: 10px;
+        }
+
+        #close-modal-btn {
+            background-color: var(--primary);
+            margin-top: 20px;
+            width: auto;
+            padding: 10px 30px;
+        }
+
+    </style>
+</head>
+<body>
+
+    <!-- ======== 1. APP CONTAINER ======== -->
+    <div id="app">
+
+        <!-- ======== 2. PERSISTENT HEADER ======== -->
+        <header>
+            <h1>Smart Pharmacy Blueprint</h1>
+            <div class="progress-container">
+                <div id="blueprint-progress-bar"></div>
+            </div>
+            <div class="stats">
+                <span>คะแนน: <b id="score-display">0</b> IP</span>
+                <span>Badge: <b id="badge-count">0</b>/6</span>
+            </div>
+        </header>
+
+        <!-- ======== 3. VIEW CONTAINER ======== -->
+        <main id="view-container">
+
+            <!-- View 0: Welcome -->
+            <div id="view-welcome" class="view">
+                <h2>ภารกิจถอดรหัส NCCS</h2>
+                <p>คุณเพิ่งกลับจากการดูงานที่ NCCS ภารกิจของคุณคือการสร้างพิมพ์เขียว (Blueprint) สำหรับโรงพยาบาลของคุณเอง โดยใช้บทเรียนที่ได้มา</p>
+                <p>พร้อมที่จะเป็น <b>Smart Pharmacy Architect</b> หรือยัง?</p>
+                <button data-target-view="view-mission-1">เริ่มภารกิจที่ 1: วางรากฐาน</button>
+            </div>
+
+            <!-- View 1: Mission 1 (Vision) -->
+            <div id="view-mission-1" class="view" data-mission-id="1" data-next-view="view-mission-2">
+                <h2>ภารกิจที่ 1: วางรากฐาน (Vision)</h2>
+                <p>NCCS ใช้ 5 เสาหลัก (5 Pillars) เป็นหัวใจในการดำเนินงาน เพื่อบรรลุเป้าหมายความเป็นเลิศ</p>
+                <div class="challenge-quiz">
+                    <p>ข้อใด *ไม่ใช่* 1 ใน 5 เสาหลักของ NCCS?</p>
+                    <button class="answer" data-correct="true">การตลาดและการแข่งขัน (Marketing & Competition)</button>
+                    <button class="answer" data-correct="false">นวัตกรรมและระบบอัตโนมัติ (Innovation & Automation)</button>
+                    <button class="answer" data-correct="false">ความปลอดภัยและคุณภาพ (Safety & Quality)</button>
+                    <button class="answer" data-correct="false">สุขภาวะที่ดีของบุคลากร (Staff Wellbeing)</button>
+                </div>
+                <div class="feedback"></div>
+                <button class="next-btn" data-target-view="view-mission-2" style="display: none;">ไปภารกิจที่ 2</button>
+            </div>
+
+            <!-- View 2: Mission 2 (Innovation Engine) -->
+            <div id="view-mission-2" class="view" data-mission-id="2" data-next-view="view-mission-3">
+                <h2>ภารกิจที่ 2: เครื่องมือสร้างนวัตกรรม</h2>
+                <p>AMII คือ "Innovation Engine" ที่มีวงจรชีวิตนวัตกรรม (Idea -> POC -> POV -> Scaling) กรณีศึกษา "Dr. Buddy" ที่ช่วยประหยัดต้นทุนกว่า 23.6 ล้านดอลลาร์ คือการพิสูจน์ขั้นตอนใด?</p>
+                <div class="challenge-quiz">
+                    <p>เลือกคำตอบที่ถูกต้อง:</p>
+                    <button class="answer" data-correct="false">Idea (การค้นหาปัญหา)</button>
+                    <button class="answer" data-correct="false">POC (Proof of Concept - พิสูจน์แนวคิด)</button>
+                    <button class="answer" data-correct="true">POV (Proof of Value - พิสูจน์คุณค่า)</button>
+                    <button class="answer" data-correct="false">Scaling (การขยายผล)</button>
+                </div>
+                <div class="feedback"></div>
+                <button class="next-btn" data-target-view="view-mission-3" style="display: none;">ไปภารกิจที่ 3</button>
+            </div>
+
+            <!-- View 3: Mission 3 (Education 4.0) -->
+            <div id="view-mission-3" class="view" data-mission-id="3" data-next-view="view-mission-4">
+                <h2>ภารกิจที่ 3: สร้างคนแห่งอนาคต</h2>
+                <p>Education 4.0 ใช้ "Serious Games" เพื่อสร้างทักษะทั้ง Hard Skills และ Soft Skills</p>
+                
+                <!-- Mini-Challenge 3.1 -->
+                <div class="challenge-quiz" data-sub-challenge="1">
+                    <p>โครงการใดใช้ "AI Art" และ "Metaverse" เพื่อสอนเรื่อง "Empathy" (ความเข้าใจผู้อื่น)?</p>
+                    <button class="answer" data-correct="false">VRx (Virtual Reality Medication Safety)</button>
+                    <button class="answer" data-correct="true">MAGIC (Metaverse Art Gallery)</button>
+                    <button class="answer" data-correct="false">STAMINA</button>
+                </div>
+                <div class="feedback" data-feedback-for="1"></div>
+
+                <!-- Mini-Challenge 3.2 (จะแสดงหลังตอบ 3.1 ถูก) -->
+                <div class="challenge-quiz" data-sub-challenge="2" style="display: none; margin-top: 20px;">
+                    <p>VR ที่จำลองสถานการณ์กดดัน เช่น รับมือผู้ป่วยก้าวร้าว เพื่อฝึก "Resilience" คือโครงการใด?</p>
+                    <button class="answer" data-correct="false">VMHR (Virtual Medication Horror Room)</button>
+                    <button class="answer" data-correct="false">VAC (Virtual Aseptic Compounding)</button>
+                    <button class="answer" data-correct="true">STAMINA</button>
+                </div>
+                <div class="feedback" data-feedback-for="2"></div>
+                
+                <button class="next-btn" data-target-view="view-mission-4" style="display: none;">ไปภารกิจที่ 4</button>
+            </div>
+
+            <!-- View 4: Mission 4 (AI, RPA, Data) -->
+            <div id="view-mission-4" class="view" data-mission-id="4" data-next-view="view-mission-5">
+                <h2>ภารกิจที่ 4: เครื่องมือปฏิบัติการ</h2>
+                <p>นี่คือหัวใจของการทำงานจริง! มาทดสอบความเข้าใจเรื่อง AI, RPA, และ Data กัน</p>
+
+                <!-- Mini-Challenge 4.1 -->
+                <div class="challenge-quiz" data-sub-challenge="1">
+                    <p>แนวคิด "AI Co-Pilot" (Human + AI) ให้ผลลัพธ์ดีที่สุด (61%) แพลตฟอร์มที่ใช้ตรวจจับความผิดพลาดในการสั่งยาของ NCCS ชื่อว่าอะไร?</p>
+                    <button class="answer" data-correct="true">NexRx.AI</button>
+                    <button class="answer" data-correct="false">Dr. Buddy</button>
+                    <button class="answer" data-correct="false">Project PRISM</button>
+                </div>
+                <div class="feedback" data-feedback-for="1"></div>
+
+                <!-- Mini-Challenge 4.2 -->
+                <div class="challenge-quiz" data-sub-challenge="2" style="display: none; margin-top: 20px;">
+                    <p>เทคโนโลยีใดที่ใช้จัดการงาน "ซ้ำซ้อน" (Repetitive) เช่น การทำบิล, การอัปเดตข้อบ่งใช้ยา เพื่อ "คืนเวลา" ให้เภสัชกร?</p>
+                    <button class="answer" data-correct="false">AI (Artificial Intelligence)</button>
+                    <button class="answer" data-correct="true">RPA (Robotic Process Automation)</button>
+                    <button class="answer" data-correct="false">IoT (Internet of Things)</button>
+                </div>
+                <div class="feedback" data-feedback-for="2"></div>
+
+                <!-- Mini-Challenge 4.3 -->
+                <div class="challenge-quiz" data-sub-challenge="3" style="display: none; margin-top: 20px;">
+                    <p>Project PRISM ใช้ "สมองกล AI" ทำนายความต้องการยาในคลัง เทคนิคสำคัญที่ใช้ "สั่ง" AI ให้คิดอย่างมืออาชีพเรียกว่าอะไร?</p>
+                    <button class="answer" data-correct="false">Machine Learning</button>
+                    <button class="answer" data-correct="false">Citizen Developer</button>
+                    <button class="answer" data-correct="true">Prompt Engineering</button>
+                </div>
+                <div class="feedback" data-feedback-for="3"></div>
+
+                <button class="next-btn" data-target-view="view-mission-5" style="display: none;">ไปภารกิจที่ 5</button>
+            </div>
+
+            <!-- View 5: Mission 5 (Home Care) -->
+            <div id="view-mission-5" class="view" data-mission-id="5" data-next-view="view-finale">
+                <h2>ภารกิจที่ 5: พรมแดนใหม่ (Home Care)</h2>
+                <p>บริการ Home Care Service (HCS) ที่นำโดยเภสัชกร (Pharmacist-led) ต้องยึดหลัก "Safety-first" เป็นสำคัญ</p>
+                <div class="challenge-quiz">
+                    <p>เงื่อนไขสำคัญที่ผู้ป่วยจะได้รับยาฉีด Herceptin® ที่บ้านได้ คืออะไร?</p>
+                    <button class="answer" data-correct="false">ต้องมีญาติเป็นพยาบาล</button>
+                    <button class="answer" data-correct="false">บ้านต้องอยู่ในระยะ 5 กม. จากโรงพยาบาล</button>
+                    <button class="answer" data-correct="true">เคยได้รับยาใน รพ. อย่างน้อย 1 ครั้ง และไม่เกิดอาการไม่พึงประสงค์ (ADR)</button>
+                </div>
+                <div class="feedback"></div>
+                <button class="next-btn" data-target-view="view-finale" style="display: none;">ดูบทสรุป</button>
+            </div>
+
+            <!-- View 6: Finale -->
+            <div id="view-finale" class="view">
+                <h2>🏆 ยินดีด้วย!</h2>
+                <p>คุณได้ถอดรหัส NCCS และสร้าง <b>"Smart Pharmacy Blueprint"</b> สำเร็จแล้ว!</p>
+                <p>คุณได้รับตรา <b>Certified Smart Pharmacy Architect</b></p>
+                <h3>คะแนนรวมของคุณ: <b id="final-score">0</b> IP</h3>
+                
+                <hr style="margin: 20px 0; border: 1px solid #f1f3f5;">
+
+                <h4>ภารกิจสุดท้ายของคุณ:</h4>
+                <p>จากบทเรียนทั้งหมด 'นวัตกรรม' แรกที่คุณอยากเริ่มต้นทำในแผนกของคุณคืออะไร?</p>
+                <textarea id="reflection-text" placeholder="พิมพ์ไอเดียของคุณที่นี่... (เช่น 'ฉันอยากลองทำ RPA กับงาน... เพราะ...')"></textarea>
+                
+                <button data-action="reset">เริ่มภารกิจใหม่</button>
+            </div>
+
+        </main>
+
+        <!-- ======== 4. MODAL (for Badges) ======== -->
+        <div id="badge-modal" class="modal">
+            <div class="modal-content">
+                <span id="modal-badge-icon">🏆</span>
+                <h2>ได้รับ Badge ใหม่!</h2>
+                <p id="modal-badge-name">The Visionary</p>
+                <button id="close-modal-btn">ยอดเยี่ยม!</button>
+            </div>
+        </div>
+
+    </div> <!-- End #app -->
+
+
+    <!-- ======== 5. JAVASCRIPT (The Brain) ======== -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+
+            // --- 1. GAME STATE ---
+            const gameState = {
+                innovationPoints: 0,
+                blueprintProgress: 0,
+                badgesEarned: [],
+                currentView: 'view-welcome',
+            };
+
+            const MISSION_COUNT = 5;
+            const BADGES = {
+                1: { name: 'The Visionary 👁️', points: 100 },
+                2: { name: 'The Innovator 🚀', points: 150 },
+                3: { name: 'The Educator 🎓', points: 200 },
+                4: { name: 'The Augmenter 🤖', points: 300 },
+                5: { name: 'The Care Extender 🏠', points: 150 },
+                6: { name: 'Certified Architect 🏆', points: 0 },
+            };
+
+            // --- 2. DOM ELEMENTS ---
+            const viewContainer = document.getElementById('view-container');
+            const scoreDisplay = document.getElementById('score-display');
+            const badgeCountDisplay = document.getElementById('badge-count');
+            const progressBar = document.getElementById('blueprint-progress-bar');
+            const finalScoreDisplay = document.getElementById('final-score');
+            
+            // Modal Elements
+            const badgeModal = document.getElementById('badge-modal');
+            const modalBadgeName = document.getElementById('modal-badge-name');
+            const modalBadgeIcon = document.getElementById('modal-badge-icon');
+            const closeModalBtn = document.getElementById('close-modal-btn');
+
+            // --- 3. CORE FUNCTIONS ---
+
+            /**
+             * Main SPA Navigation. Hides all views, shows the target view.
+             * @param {string} viewId - The ID of the view to show.
+             */
+            function navigateTo(viewId) {
+                document.querySelectorAll('.view').forEach(view => {
+                    view.classList.remove('active');
+                });
+
+                const targetView = document.getElementById(viewId);
+                if (targetView) {
+                    targetView.classList.add('active');
+                    gameState.currentView = viewId;
+                    window.scrollTo(0, 0); // Scroll to top on view change
+                }
+            }
+
+            /**
+             * Updates the persistent UI (score, badge count, progress bar).
+             */
+            function updateUI() {
+                scoreDisplay.textContent = gameState.innovationPoints;
+                badgeCountDisplay.textContent = `${gameState.badgesEarned.length}/6`;
+                
+                const progressPercent = (gameState.blueprintProgress / MISSION_COUNT) * 100;
+                progressBar.style.width = `${progressPercent}%`;
+
+                finalScoreDisplay.textContent = gameState.innovationPoints;
+            }
+
+            /**
+             * Shows the badge award modal.
+             * @param {object} badge - The badge object from BADGES constant.
+             */
+            function showBadgeModal(badge) {
+                modalBadgeName.textContent = badge.name.split(' ')[0]; // Show only name
+                modalBadgeIcon.textContent = badge.name.split(' ')[1] || '🏆'; // Show icon
+                badgeModal.classList.add('active');
+            }
+
+            /**
+             * Awards a badge, updates state, and shows the modal.
+             * @param {number | string} missionId - The ID of the mission (1-6).
+             */
+            function awardBadge(missionId) {
+                const badge = BADGES[missionId];
+                if (!badge || gameState.badgesEarned.includes(badge.name)) {
+                    return; // Already earned
+                }
+
+                gameState.innovationPoints += badge.points;
+                gameState.badgesEarned.push(badge.name);
+                
+                if (missionId <= MISSION_COUNT) {
+                    gameState.blueprintProgress++;
+                }
+
+                showBadgeModal(badge);
+                updateUI();
+            }
+
+            /**
+             * Resets the game to its initial state.
+             */
+            function resetGame() {
+                gameState.innovationPoints = 0;
+                gameState.blueprintProgress = 0;
+                gameState.badgesEarned = [];
+                
+                // Reset all quizzes
+                document.querySelectorAll('.challenge-quiz').forEach(quiz => {
+                    quiz.style.display = 'block';
+                    const subChallengeId = quiz.dataset.subChallenge;
+                    if (subChallengeId && subChallengeId !== '1') {
+                         quiz.style.display = 'none'; // Hide sub-challenges
+                    }
+                    
+                    quiz.querySelectorAll('.answer').forEach(btn => {
+                        btn.classList.remove('correct', 'incorrect');
+                        btn.disabled = false;
+                    });
+                });
+                
+                // Reset all feedback
+                document.querySelectorAll('.feedback').forEach(fb => {
+                    fb.style.display = 'none';
+                    fb.classList.remove('correct', 'incorrect');
+                });
+
+                // Hide all 'next-btn'
+                document.querySelectorAll('.next-btn').forEach(btn => {
+                    btn.style.display = 'none';
+                });
+
+                document.getElementById('reflection-text').value = '';
+
+                updateUI();
+                navigateTo('view-welcome');
+            }
+
+            /**
+             * Handles logic for multi-part challenges (Missions 3 & 4)
+             * @param {Element} currentQuiz - The quiz element that was just answered.
+             * @param {Element} currentView - The view element containing the quiz.
+             */
+            function handleSubChallenge(currentQuiz, currentView) {
+                const currentSubId = parseInt(currentQuiz.dataset.subChallenge, 10);
+                const nextSubId = currentSubId + 1;
+                const nextSubChallenge = currentView.querySelector(`.challenge-quiz[data-sub-challenge="${nextSubId}"]`);
+
+                if (nextSubChallenge) {
+                    // If there's a next sub-challenge, show it
+                    nextSubChallenge.style.display = 'block';
+                } else {
+                    // This was the last sub-challenge in the view
+                    awardBadge(currentView.dataset.missionId);
+                    currentView.querySelector('.next-btn').style.display = 'block'; // Show 'Next Mission' button
+                }
+            }
+            
+            /**
+             * Handles clicks on quiz answers.
+             * @param {Element} buttonEl - The answer button that was clicked.
+             */
+            function handleAnswerClick(buttonEl) {
+                const isCorrect = buttonEl.dataset.correct === 'true';
+                const quizContainer = buttonEl.closest('.challenge-quiz');
+                const currentView = buttonEl.closest('.view');
+                const feedbackEl = quizContainer.nextElementSibling;
+                
+                // Disable all buttons in this quiz
+                quizContainer.querySelectorAll('.answer').forEach(btn => {
+                    btn.disabled = true;
+                });
+
+                if (isCorrect) {
+                    buttonEl.classList.add('correct');
+                    if(feedbackEl) {
+                        feedbackEl.textContent = 'ถูกต้องครับ!';
+                        feedbackEl.className = 'feedback correct';
+                    }
+
+                    // Check if it's a sub-challenge (Missions 3 & 4)
+                    if (quizContainer.dataset.subChallenge) {
+                        handleSubChallenge(quizContainer, currentView);
+                    } 
+                    // Standard challenge (Missions 1, 2, 5)
+                    else {
+                        awardBadge(currentView.dataset.missionId);
+                        currentView.querySelector('.next-btn').style.display = 'block';
+                    }
+
+                } else {
+                    buttonEl.classList.add('incorrect');
+                    if(feedbackEl) {
+                        feedbackEl.textContent = 'คำตอบยังไม่ถูกต้อง ลองดูตัวเลือกอื่นครับ';
+                        feedbackEl.className = 'feedback incorrect';
+                    }
+                    // Re-enable buttons to allow another try
+                     quizContainer.querySelectorAll('.answer').forEach(btn => {
+                        btn.disabled = false;
+                    });
+                }
+            }
+
+
+            // --- 4. EVENT LISTENERS ---
+
+            // Use Event Delegation on the main container
+            viewContainer.addEventListener('click', (event) => {
+                const target = event.target;
+
+                // Handle navigation buttons
+                if (target.matches('[data-target-view]')) {
+                    const viewId = target.dataset.targetView;
+                    navigateTo(viewId);
+                }
+                
+                // Handle quiz answer buttons
+                if (target.matches('.answer') && !target.disabled) {
+                    handleAnswerClick(target);
+                }
+                
+                // Handle reset button
+                if (target.matches('[data-action="reset"]')) {
+                    resetGame();
+                }
+            });
+
+            // Close Modal Button
+            closeModalBtn.addEventListener('click', () => {
+                badgeModal.classList.remove('active');
+                
+                // Special check: If this was the final badge, go to finale
+                if (gameState.blueprintProgress === MISSION_COUNT && gameState.badgesEarned.length === 6) {
+                    navigateTo('view-finale');
+                }
+            });
+
+            // --- 5. INITIALIZATION ---
+            updateUI(); // Set initial UI
+            navigateTo('view-welcome'); // Show the first page
+        });
+    </script>
+
+</body>
+</html>
