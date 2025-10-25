@@ -7,9 +7,58 @@
     <link rel="icon" type="image/x-icon" href="https://i.postimg.cc/bvc3fm2r/apopa-logo.png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@400;600;700;800&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="stylesheet" href="assets/css/style.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .infographic-body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8fafc; /* Tailwind gray-50 */
+        }
+        /* Custom class for connecting lines */
+        .flow-connector {
+            width: 4px;
+            height: 40px;
+            background-color: #cbd5e1; /* Tailwind slate-300 */
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .flow-branch-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 16px;
+            padding-top: 24px;
+            padding-bottom: 24px;
+        }
+        .flow-box {
+            background-color: white;
+            border-radius: 0.75rem; /* rounded-xl */
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05); /* shadow-lg */
+            padding: 1.5rem; /* p-6 */
+            text-align: center;
+            width: 100%;
+        }
+        .flow-box-main {
+            border-top-width: 8px;
+        }
+        .flow-box-sub {
+            width: 200px;
+            padding: 1rem; /* p-4 */
+            font-size: 0.875rem; /* text-sm */
+            font-weight: 600; /* font-semibold */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 80px;
+            transition: all 0.2s ease-in-out;
+        }
+        .flow-box-sub:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04); /* shadow-2xl */
+        }
+    </style>
 </head>
 <body>
 
@@ -48,10 +97,97 @@
             <p>Singapore's Model for a Future-Ready Pharmacy Workforce</p>
         </header>
 
+        <div class="article-body">
+
         <section>
             <p>โลกของบริการสุขภาพ (Healthcare) กำลังเปลี่ยนแปลงไปอย่างรวดเร็ว การเปลี่ยนผ่านสู่ยุคดิจิทัล (Digital Transformation), การก้าวเข้าสู่สังคมผู้สูงอายุ (Aging Society) และการเกิดขึ้นของโรคอุบัติใหม่ที่ซับซ้อน ล้วนเป็นความท้าทายที่ทุกประเทศต้องเผชิญ บทบาทของ "เภสัชกร" (Pharmacist) เองก็กำลังถูกท้าทายเช่นกัน จากเดิมที่ภาพจำอาจหยุดอยู่แค่การจ่ายยาในห้องยา ปัจจุบันและอนาคตต้องการเภสัชกรที่มีบทบาทเชิงรุก (Proactive Role) ในการดูแลผู้ป่วย, เป็นส่วนสำคัญของทีมสหวิชาชีพ, มีความเชี่ยวชาญด้านเทคโนโลยี และมี "ภาวะผู้นำ" (Leadership) ในการขับเคลื่อนการเปลี่ยนแปลง</p>
             <p>ท่ามกลางความท้าทายนี้ "สิงคโปร์" ถือเป็นหนึ่งในประเทศที่โดดเด่นอย่างมากในการวางรากฐานและพัฒนาระบบบุคลากรเภสัชกรรมอย่างเป็นรูปธรรมและเป็นระบบที่สุดแห่งหนึ่งของโลก พวกเขาไม่ได้มองการพัฒนาคนแบบแยกส่วน แต่สร้าง "ระบบนิเวศ" (Ecosystem) ที่เชื่อมโยงกันอย่างสมบูรณ์ ตั้งแต่ยุทธศาสตร์ระดับชาติที่ชัดเจน, แผนปฏิบัติการที่มุ่งเน้นการสร้างคนที่ยืดหยุ่น, กรอบสมรรถนะ (Competency Framework) ที่เป็นบันไดให้เติบโต ไปจนถึงกลยุทธ์การบ่มเพาะผู้นำรุ่นใหม่โดยเฉพาะ</p>
             <p>บทความนี้จะพาไป "ถอดรหัส" โมเดลการพัฒนาเภสัชกรของสิงคโปร์ ว่าพวกเขาวางแผนและสร้าง "เภสัชกรที่พร้อมสำหรับอนาคต" (Future-ready Pharmacist) ขึ้นมาได้อย่างไร ผ่าน 4 เสาหลักสำคัญ ได้แก่: ยุทธศาสตร์ชาติ (National Pharmacy Strategy), โครงการ PHARMFORCE, กรอบการพัฒนา DFP (Development Framework for Pharmacists), และกลยุทธ์พัฒนาผู้นำ PLDS (Pharmacy Leadership Development Strategy) ซึ่งทั้งหมดนี้ถือเป็นกรณีศึกษาที่ทรงคุณค่าอย่างยิ่งสำหรับวงการสาธารณสุขและการพัฒนาบุคลากรของไทย</p>
+        </section>
+
+        <section class="infographic-body">
+            <div class="container mx-auto p-6 md:p-12 max-w-7xl">
+                <h1 class="text-3xl md:text-4xl font-bold text-center text-gray-900 mb-12">
+                    แผนภาพโครงสร้างการพัฒนาวิชาชีพเภสัชกรรมสิงคโปร์
+                </h1>
+
+                <div class="flex flex-col items-center">
+
+                    <!-- === BLOCK 1: National Strategy === -->
+                    <div class="flow-box flow-box-main border-indigo-600 max-w-3xl">
+                        <h2 class="text-2xl font-bold text-indigo-700 mb-2">1. ยุทธศาสตร์เภสัชกรรมแห่งชาติ (National Pharmacy Strategy)</h2>
+                        <p class="text-gray-600">แผนแม่บท 5 แกนหลัก เพื่อปฏิรูประบบสุขภาพ</p>
+                    </div>
+                    
+                    <div class="flow-branch-container max-w-6xl">
+                        <!-- Sub-items for Block 1 -->
+                        <div class="flow-box flow-box-sub bg-indigo-100 text-indigo-800">🌟 1. Pharmaceutical Care Excellence</div>
+                        <div class="flow-box flow-box-sub bg-indigo-100 text-indigo-800">🧑‍⚕️ 2. Confident Pharmacy Workforce</div>
+                        <div class="flow-box flow-box-sub bg-indigo-100 text-indigo-800">📦 3. Re-design Supply Chain</div>
+                        <div class="flow-box flow-box-sub bg-indigo-100 text-indigo-800">ℹ️ 4. Information Enablement</div>
+                        <div class="flow-box flow-box-sub bg-indigo-100 text-indigo-800">💻 5. Technology Enablement</div>
+                    </div>
+
+                    <div class="flow-connector"></div>
+
+                    <!-- === BLOCK 2: PHARMFORCE === -->
+                    <div class="flow-box flow-box-main border-emerald-600 max-w-3xl">
+                        <h2 class="text-2xl font-bold text-emerald-700 mb-2">2. โครงการ PHARMFORCE</h2>
+                        <p class="text-gray-600">แผนปฏิบัติการ "สร้างคน" 5 สายงานหลัก</p>
+                    </div>
+
+                    <div class="flow-branch-container max-w-6xl">
+                        <!-- Sub-items for Block 2 -->
+                        <div class="flow-box flow-box-sub bg-emerald-100 text-emerald-800">🏆 1. Leadership Development</div>
+                        <div class="flow-box flow-box-sub bg-emerald-100 text-emerald-800">⚖️ 2. Role & Scope of Practice</div>
+                        <div class="flow-box flow-box-sub bg-emerald-100 text-emerald-800">🌱 3. Manpower Development & Recognition</div>
+                        <div class="flow-box flow-box-sub bg-emerald-100 text-emerald-800">🧘 4. Workload & Work Environment</div>
+                        <div class="flow-box flow-box-sub bg-emerald-100 text-emerald-800">🗣️ 5. Communication & Engagement</div>
+                    </div>
+
+                    <div class="flow-connector"></div>
+
+                    <!-- === BLOCK 3: DFP === -->
+                    <div class="flow-box flow-box-main border-sky-600 max-w-3xl">
+                        <h2 class="text-2xl font-bold text-sky-700 mb-2">3. กรอบ DFP (Development Framework for Pharmacists)</h2>
+                        <p class="text-gray-600">"บันไดการเติบโต" ผ่าน 7 โดเมนสมรรถนะ</p>
+                    </div>
+
+                    <div class="flow-branch-container max-w-7xl">
+                        <!-- Sub-items for Block 3 -->
+                        <div class="flow-box flow-box-sub bg-sky-100 text-sky-800">1. Expert Professional Practice</div>
+                        <div class="flow-box flow-box-sub bg-sky-100 text-sky-800">2. Building Working Relationships</div>
+                        <div class="flow-box flow-box-sub bg-sky-100 text-sky-800">3. Leadership (ต่อยอดสู่ PLDS)</div>
+                        <div class="flow-box flow-box-sub bg-sky-100 text-sky-800">4. Management</div>
+                        <div class="flow-box flow-box-sub bg-sky-100 text-sky-800">5. Education, Training & Development</div>
+                        <div class="flow-box flow-box-sub bg-sky-100 text-sky-800">6. Research & Evaluation</div>
+                        <div class="flow-box flow-box-sub bg-sky-100 text-sky-800">7. Professionalism</div>
+                    </div>
+
+                    <div class="flow-connector"></div>
+
+                    <!-- === BLOCK 4: PLDS === -->
+                    <div class="flow-box flow-box-main border-rose-600 max-w-3xl">
+                        <h2 class="text-2xl font-bold text-rose-700 mb-2">4. กลยุทธ์ PLDS (Pharmacy Leadership Development Strategy)</h2>
+                        <p class="text-gray-600">กลยุทธ์ "ต่อยอด" เพื่อบ่มเพาะภาวะผู้นำ</p>
+                    </div>
+
+                    <div class="flow-branch-container max-w-3xl">
+                        <!-- Sub-items for Block 4 -->
+                        <div class="flow-box flow-box-sub bg-rose-100 text-rose-800">🧘 Self-Leadership (การนำตนเอง)</div>
+                        <div class="flow-box flow-box-sub bg-rose-100 text-rose-800">🤝 Leading Others (การนำผู้อื่น)</div>
+                    </div>
+
+                    <div class="flow-connector bg-gray-400 border border-dashed"></div>
+
+                     <!-- === BLOCK 5: Collaboration === -->
+                     <div class="flow-box flow-box-main border-gray-500 max-w-3xl border-dashed">
+                        <h2 class="text-2xl font-bold text-gray-700 mb-2">5. ความร่วมมือระหว่างประเทศ (Cross-country Collaboration)</h2>
+                        <p class="text-gray-600">กลไกสนับสนุนการเรียนรู้จากภายนอก (Mentorship, Workshops, Research)</p>
+                    </div>
+
+                </div>
+            </div>
         </section>
 
         <section>
@@ -151,6 +287,8 @@
             <p>เริ่มตั้งแต่ ยุทธศาสตร์ชาติ ที่กำหนดทิศทางอนาคต, ขับเคลื่อนด้วย PHARMFORCE ที่มุ่งสร้าง "คน" ที่มีพลังกายและพลังใจ, วางรากฐานการเติบโตด้วย DFP ที่เป็น "บันไดสมรรถนะ" 7 ด้านให้เภสัชกรทุกคนไต่ตามได้อย่างชัดเจน และบ่มเพาะเมล็ดพันธุ์แห่งการเปลี่ยนแปลงผ่าน PLDS ที่สร้าง "ผู้นำ" ในทุกระดับ</p>
             <p>นี่คือ "การเดินทาง" ที่สิงคโปร์ได้พิสูจน์ให้เห็นว่า การลงทุนในการพัฒนาคนอย่างเป็นระบบและต่อเนื่อง คือหัวใจสำคัญที่สุดที่จะทำให้ระบบสาธารณสุข พร้อมรับมือกับความท้าทายในอนาคตได้อย่างยั่งยืน และเป็นบทเรียนที่ทุกประเทศ รวมถึงประเทศไทย สามารถนำมาปรับใช้เพื่อสร้างอนาคตของวิชาชีพเภสัชกรรมต่อไปได้ครับ</p>
         </section>
+
+        </div>
 
         <footer>
             <p style="text-align:center; color: #6c757d; margin-top: 50px;">เรียบเรียงโดยเภสัชกรวิรุณ เวชศิริ</p>

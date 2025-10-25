@@ -448,3 +448,42 @@ footer p:first-child {
     margin-top: 15px;
     color: #bdc3c7;
 }
+
+/* === Enhanced Article Readability Styles === */
+.article-body p {
+    font-size: 1.1rem;
+    line-height: 1.8;
+    margin-bottom: 1.5em;
+}
+
+.article-body h2 {
+    font-size: 2.2em;
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+.article-body h3 {
+    font-size: 1.6em;
+    margin-top: 1.8em;
+    margin-bottom: 0.8em;
+}
+
+.article-body ul, .article-body ol {
+    padding-left: 2em;
+}
+
+.article-body li {
+    margin-bottom: 0.8em;
+    font-size: 1.1rem;
+    line-height: 1.8;
+}
+
+.article-body strong {
+    font-weight: 700;
+    color: #004d40;
+}
+
+.article-body em {
+    font-style: italic;
+    color: #546e7a;
+}
